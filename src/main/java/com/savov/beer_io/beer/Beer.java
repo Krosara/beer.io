@@ -1,4 +1,4 @@
-package com.example.beer_io.beer;
+package com.savov.beer_io.beer;
 
 import lombok.Getter;
 

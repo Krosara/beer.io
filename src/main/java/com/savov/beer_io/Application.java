@@ -1,4 +1,4 @@
-package com.example.beer_io;
+package com.savov.beer_io;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
