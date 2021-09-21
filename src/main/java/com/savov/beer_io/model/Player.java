@@ -1,7 +1,8 @@
-package com.savov.beer_io.player;
+package com.savov.beer_io.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public class Player implements Serializable {
     public Player() {
     }
 
+    @Autowired
     public Player( long id, String username, String email, String password, String country){
             this.id = id;
             this.username = username;
