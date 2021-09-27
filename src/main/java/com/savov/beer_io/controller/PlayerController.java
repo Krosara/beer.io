@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping(path = "player")
+//@RestController
+//@RequestMapping(path = "api/v1/player")
 public class PlayerController {
 
     private final PlayerService playerService;
@@ -19,11 +19,11 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Player>> getAllPlayers()
-    {
-        List<Player> players = playerService.findAllPlayers();
-        return new ResponseEntity<>(players, HttpStatus.OK);
+//    @GetMapping("/all")
+//    public ResponseEntity<List<Player>> getAllPlayers()
+//    {
+//        List<Player> players = playerService.findAllPlayers();
+//        return new ResponseEntity<>(players, HttpStatus.OK);
 //        return List.of(
 //                new Player(
 //                        1L,
@@ -40,12 +40,12 @@ public class PlayerController {
 //                        "USA"
 //                )
 //        );
-    }
+//    }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Player> getPlayerById(@PathVariable("id") long id)
+    @GetMapping("/find/{email}")
+    public ResponseEntity<Player> getPlayerById(@PathVariable("email") String email)
     {
-        Player player = playerService.findPlayerById(id);
+        Player player = (Player) playerService.loadUserByUsername(email);
         return new ResponseEntity<>(player, HttpStatus.OK);
 //        for (Player p :
 //                getPlayers()) {
@@ -56,25 +56,25 @@ public class PlayerController {
 //        return null;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Player> addPlayer(@RequestBody Player player)
-    {
-        Player newPlayer = playerService.addPlayer(player);
-        return new ResponseEntity<>(newPlayer, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/update")
-    public ResponseEntity<Player> updatePlayer(@RequestBody Player player)
-    {
-        Player updatePlayer = playerService.updatePlayer(player);
-        return new ResponseEntity<>(updatePlayer, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deletePlayer(@PathVariable("id") Long id)
-    {
-        playerService.deletePlayer(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<Player> addPlayer(@RequestBody Player player)
+//    {
+//        Player newPlayer = playerService.addPlayer(player);
+//        return new ResponseEntity<>(newPlayer, HttpStatus.CREATED);
+//    }
+//
+//    @PutMapping("/update")
+//    public ResponseEntity<Player> updatePlayer(@RequestBody Player player)
+//    {
+//        Player updatePlayer = playerService.updatePlayer(player);
+//        return new ResponseEntity<>(updatePlayer, HttpStatus.OK);
+//    }
+//
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<?> deletePlayer(@PathVariable("id") Long id)
+//    {
+//        playerService.deletePlayer(id);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
 }
