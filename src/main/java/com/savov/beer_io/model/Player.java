@@ -1,57 +1,83 @@
 package com.savov.beer_io.model;
 
+import com.savov.beer_io.enums.PlayerRole;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 
+@Getter
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
 @Entity
-public class Player implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
-    @Getter
-    private Long id;
-    @Getter
-    @Setter
-    private String username;
-    @Getter
-    @Setter
-    private String email;
-    @Getter
-    @Setter
-    private String password;
-    @Getter
-    @Setter
-    private String country;
-    @Getter
-    @Setter
-    private Boolean isAdmin;
+public class Player implements UserDetails {
 
-    public Player() {
-    }
+    @SequenceGenerator(
+            name = "player_sequence",
+            sequenceName = "player_sequence",
+            allocationSize = 1
+    )
+
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "player_sequence"
+    )
+    @Column(nullable = false, updatable = false)
+    private Long id;
+    private String username;
+    private String email;
+    private String password;
+    private String country;
+    @Enumerated(EnumType.STRING)
+    private PlayerRole playerRole;
+    private Boolean locked = false;
+    private Boolean enabled = true;
+
 
     @Autowired
-    public Player( long id, String username, String email, String password, String country){
-            this.id = id;
-            this.username = username;
-            this.email = email;
-            this.password = password;
-            this.country = country;
-            this.isAdmin = false;
+    public Player(String username, String email, String password, String country, PlayerRole playerRole) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.country = country;
+        this.playerRole = playerRole;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(playerRole.name());
+        return Collections.singletonList(authority);
     }
 
 
     @Override
-    public String toString () {
-        return "Player{" + "id=" + id
-                        + ", username='" + username + "\'"
-                        + ", email='" + email + "\'"
-                        + ", password" + password + "\'"
-                        + ", country" + country + "\'"
-                        + ", admin" + isAdmin + "\'" + "}";
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 }
