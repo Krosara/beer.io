@@ -54,16 +54,6 @@ public class Player implements UserDetails {
         this.playerRole = playerRole;
     }
 
-//    @Override
-//    public String toString () {
-//        return "Player{" + "id=" + id
-//                        + ", username='" + username + "\'"
-//                        + ", email='" + email + "\'"
-//                        + ", password" + password + "\'"
-//                        + ", country" + country + "\'"
-//                        + ", role" + playerRole + "\'" + "}";
-//    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(playerRole.name());
