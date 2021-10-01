@@ -1,40 +1,27 @@
 package com.savov.beer_io.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 
-public class Beer implements Serializable {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Beer {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable = false, updatable = false)
-    @Getter private long id;
-    @Getter @Setter private String brand;
-    @Getter @Setter private String type;
-    @Getter @Setter private String country;
-
-    @Autowired
-    public Beer(long id, String brand, String type, String country) {
-        this.id = id;
-        this.brand = brand;
-        this.type = type;
-        this.country = country;
-    }
-
-    @Override
-    public String toString () {
-        return "Beer{" + "id=" + id
-                + ", brand='" + brand + "\'"
-                + ", type='" + type + "\'"
-                + ", country" + country + "\'" + "}";
-    }
+    private int id;
+    private String brandName;
+    private String type;
+    private String country;
+    private String description;
 }
 
 

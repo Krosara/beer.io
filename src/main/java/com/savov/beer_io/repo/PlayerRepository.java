@@ -4,14 +4,13 @@ import com.savov.beer_io.model.Player;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
+
 @Repository
-@Transactional
-public interface PlayerRepository extends JpaRepository<Player, Long> {
-    void deletePlayerById(Long id);
+public interface PlayerRepository extends JpaRepository<Player, Integer> {
 
-    Optional<Player> findPlayerByEmail(String email);
+    void deletePlayerById(int id);
 
+    Optional<Player> findPlayerById(int id);
 }
