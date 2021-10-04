@@ -35,19 +35,19 @@ class PlayerControllerTest {
         assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
 
-    @Test
-    void getPlayerById() {
-    }
-
-    @Test
-    void addPlayer() {
-    }
-
-    @Test
-    void updatePlayer() {
-    }
-
-    @Test
-    void deletePlayer() {
-    }
+//    @Test
+//    void getPlayerById() {
+//    }
+//
+//    @Test
+//    void addPlayer() {
+//    }
+//
+//    @Test
+//    void updatePlayer() {
+//    }
+//
+//    @Test
+//    void deletePlayer() {
+//    }
 }
