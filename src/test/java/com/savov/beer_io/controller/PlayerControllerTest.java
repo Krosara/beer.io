@@ -17,8 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(
-        classes = Application.class)
+@SpringBootTest
 @AutoConfigureMockMvc
 class PlayerControllerTest {
 
