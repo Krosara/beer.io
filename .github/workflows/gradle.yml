@@ -1,9 +1,10 @@
-name: CI master
+name: Java CI
 
 on:
   push:
       branches: 
        - master
+       - development
 
 jobs:
   build:
