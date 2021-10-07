@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
 @RestController
 @RequestMapping("/api/player")
+@CrossOrigin("http://localhost:3000/")
 public class PlayerController {
     private final PlayerService playerService;
 
