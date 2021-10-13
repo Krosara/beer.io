@@ -1,5 +1,6 @@
 package com.savov.beer_io.service;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.savov.beer_io.exceptions.PlayerNotFoundException;
 import com.savov.beer_io.model.Player;
 import com.savov.beer_io.repo.PlayerRepository;
@@ -15,7 +16,7 @@ import java.util.List;
 
 
 @Service
-@Transactional
+@Transactional(Transactional.TxType.NEVER)
 public class PlayerService {
     private final PlayerRepository playerRepository;
 
@@ -41,7 +42,12 @@ public class PlayerService {
         return playerRepository.findPlayerById(id).orElseThrow(() -> new PlayerNotFoundException("Player with ID:" + id + " not found"));
     }
 
-    public void deletePlayer(int id){
-        playerRepository.deletePlayerById(id);
+    public Boolean deletePlayer(int id){
+        try{
+            playerRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

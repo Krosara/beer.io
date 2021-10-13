@@ -45,7 +45,13 @@ public class BeerController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteBeer(@PathVariable("id") int id) {
-        beerService.deleteBeer(id);
+
+        boolean isDeleted = beerService.deleteBeer(id);
+
+        if (!isDeleted){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
+
     }
 }

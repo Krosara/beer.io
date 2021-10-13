@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface BeerRepository extends JpaRepository<Beer, Integer> {
 
-    void deleteBeerById(int id);
+    void deleteById(int id);
 
     Optional<Beer> findBeerById(int id);
 

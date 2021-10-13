@@ -35,7 +35,12 @@ public class BeerService {
         return beerRepository.findBeerById(id).orElseThrow(() -> new BeerNotFoundException("Beer with ID:" + id + " not found"));
     }
 
-    public void deleteBeer(int id){
-        beerRepository.deleteBeerById(id);
+    public Boolean deleteBeer(int id){
+        try{
+            beerRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

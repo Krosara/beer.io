@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
 
-    void deletePlayerById(int id);
+    void deleteById(int id);
 
     Optional<Player> findPlayerById(int id);
 }

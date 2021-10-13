@@ -12,6 +12,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/beer.io
     username: postgres
   jpa:
+    show-sql: true
     hibernate:
 #      ddl-auto: create-drop
       ddl-auto: update
@@ -19,4 +20,3 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-      show-sql: true
