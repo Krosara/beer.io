@@ -21,7 +21,6 @@ public class Beer {
     private String brandName;
     private String type;
     private String country;
-    private String description;
 }
 
 
