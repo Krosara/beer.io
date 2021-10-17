@@ -32,12 +32,12 @@ class PlayerControllerTest {
 //    @Autowired
 //    private PlayerRepository _repository;
 
-    @Test
-    public void getAllPlayers() throws Exception {
+//    @Test
+//    public void getAllPlayers() throws Exception {
 //        RequestBuilder request = MockMvcRequestBuilders.get("/api/player");
 //        MvcResult result = _mvc.perform(request).andReturn();
 //        assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
-    }
+//    }
 
 //    @Test
 //    void getPlayerById() {
