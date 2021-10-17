@@ -1,32 +1,31 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import Button from '@restart/ui/esm/Button';
 
 const Navbar = () => {
-  const [buttonText, setButtonText] = useState('Login');
+  // const [buttonText, setButtonText] = useState('');
 
-  const changeText = (text) => setButtonText(text);
+  // const changeText = (text) => setButtonText(text);
 
   return (
-    <nav lassName="flex flex-row text-center justify-between py-4 px-24 bg-white shadow items-baseline w-full min-w-full xs:px-7">
-      <div className="bg-green">
-        <Button
-          className="bg-green bg-opacity-100 font-workSans shadow-2xl"
-          onClick={() => changeText('Register')}
-          component={Link}
-          to="/login"
-        >
-          {buttonText}
-        </Button>
-        {/* <Button
-          // onClick={() => changeText('Register')}
-          component={Link}
-          to="/login"
-        >
-          {buttonText}
-        </Button> */}
-      </div>
-    </nav>
+    <header>
+      <button component={Link} to="/scoreboard">
+        <div className="font-light bg-btngreen-default hover:bg-btngreen-light mx-16 my-10 absolute w-40 text-center top-0 filter drop-shadow-normal">
+          <div className="text-offwhite text-2xl leading-7 my-5">
+            Scoreboard
+          </div>
+        </div>
+      </button>
+      <button component={Link} to="/logout">
+        <div className="font-light bg-btngreen-darker hover:bg-btngreen-dark mx-16 my-10 absolute w-44 text-center right-56 top-0 filter drop-shadow-normal">
+          <div className="text-offwhite text-2xl leading-7 my-5">Profile</div>
+        </div>
+      </button>
+      <button component={Link} to="/profile">
+        <div className="font-light bg-btngreen-default hover:bg-btngreen-light mx-16 my-10 absolute w-40 text-center right-0 top-0 filter drop-shadow-normal">
+          <div className=" text-offwhite text-2xl leading-7 my-5">Logout</div>
+        </div>
+      </button>
+    </header>
   );
 };
 

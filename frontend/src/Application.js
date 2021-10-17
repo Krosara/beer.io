@@ -16,17 +16,15 @@ const Application = () => {
 
   return (
     <Router>
-      <div>
-        {/* <Main players={state} /> */}
-        <Navbar />
-        <Switch>
-          <Route exact path="/">
-            {/* <Landing /> */}
-          </Route>
-          <Route path="/login">{/* <Login /> */}</Route>
-          <Route path="/register">{/* <Register /> */}</Route>
-        </Switch>
-      </div>
+      {/* <Main players={state} /> */}
+      <Navbar />
+      <Switch>
+        <Route exact path="/">
+          {/* <Landing /> */}
+        </Route>
+        <Route path="/login">{/* <Login /> */}</Route>
+        <Route path="/register">{/* <Register /> */}</Route>
+      </Switch>
     </Router>
   );
 };
