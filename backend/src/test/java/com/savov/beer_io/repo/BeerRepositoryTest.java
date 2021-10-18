@@ -20,7 +20,7 @@ class BeerRepositoryTest {
 
     @Autowired
     private BeerRepository _beerRepository;
-
+    static int id = 0;
     @BeforeEach
     void clean() {
         _beerRepository.deleteAll();
@@ -29,8 +29,9 @@ class BeerRepositoryTest {
     @Test
     void itShouldDeleteBeerById() {
         //Arrange
+        id++;
         Beer beer = new Beer(
-                1,
+                id,
                 "Staropramen",
                 "Pilsner",
                 "Czechia"
@@ -38,7 +39,7 @@ class BeerRepositoryTest {
         _beerRepository.save(beer);
         int countBefore = _beerRepository.findAll().size();
         //Act
-        _beerRepository.deleteById(1);
+        _beerRepository.deleteById(beer.getId());
         int countAfter = _beerRepository.findAll().size();
         //Assert
         assertThat(countBefore).isEqualTo(1);
@@ -46,27 +47,31 @@ class BeerRepositoryTest {
     }
 
     @Test
-    void itShouldDeleteTheCorrectPlayerById() {
+    void itShouldDeleteTheCorrectBeerById() {
         //Arrange
-        Beer beer = new Beer(
-                1,
+        id++;
+        Beer b1 = new Beer(
+                id,
                 "Staropramen",
                 "Pilsner",
                 "Czechia"
         );
-        _beerRepository.save(beer);
-        Beer beer1 = new Beer(
-                2,
+
+        id++;
+        Beer b2 = new Beer(
+                id,
                 "Kamenitza",
                 "Pilsner",
                 "Bulgaria"
         );
-        _beerRepository.save(beer1);
+
+        _beerRepository.save(b1);
+        _beerRepository.save(b2);
 
         //Act
-        _beerRepository.deleteById(1);
-        Boolean b1Exist = _beerRepository.existsById(1);
-        Boolean b2Exist = _beerRepository.existsById(2);
+        _beerRepository.deleteById(b1.getId());
+        Boolean b1Exist = _beerRepository.existsById(b1.getId());
+        Boolean b2Exist = _beerRepository.existsById(b2.getId());
         //Assert
         assertThat(b1Exist).isFalse();
         assertThat(b2Exist).isTrue();

@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Beer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Integer id;
     private String brandName;
