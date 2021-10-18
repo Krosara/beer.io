@@ -31,11 +31,11 @@ public class BeerService {
         return beerRepository.save(beer);
     }
 
-    public Beer findBeerById(int id) {
+    public Beer findBeerById(Integer id) {
         return beerRepository.findBeerById(id).orElseThrow(() -> new BeerNotFoundException("Beer with ID:" + id + " not found"));
     }
 
-    public Boolean deleteBeer(int id){
+    public Boolean deleteBeer(Integer id){
         try{
             beerRepository.deleteById(id);
             return true;

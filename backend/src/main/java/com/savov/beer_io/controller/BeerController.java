@@ -26,7 +26,7 @@ public class BeerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Beer> getBeerById (@PathVariable("id") int id) {
+    public ResponseEntity<Beer> getBeerById (@PathVariable("id") Integer id) {
         Beer beer = beerService.findBeerById(id);
         return new ResponseEntity<>(beer, HttpStatus.OK);
     }
@@ -44,7 +44,7 @@ public class BeerController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteBeer(@PathVariable("id") int id) {
+    public ResponseEntity<?> deleteBeer(@PathVariable("id") Integer id) {
 
         boolean isDeleted = beerService.deleteBeer(id);
 

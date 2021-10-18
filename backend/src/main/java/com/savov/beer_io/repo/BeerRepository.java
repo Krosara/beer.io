@@ -9,8 +9,8 @@ import java.util.Optional;
 @Repository
 public interface BeerRepository extends JpaRepository<Beer, Integer> {
 
-    void deleteById(int id);
+    void deleteById(Integer id);
 
-    Optional<Beer> findBeerById(int id);
+    Optional<Beer> findBeerById(Integer id);
 
 }
