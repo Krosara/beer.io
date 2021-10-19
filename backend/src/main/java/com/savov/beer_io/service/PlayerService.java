@@ -1,14 +1,9 @@
 package com.savov.beer_io.service;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import com.savov.beer_io.exceptions.PlayerNotFoundException;
 import com.savov.beer_io.model.Player;
 import com.savov.beer_io.repo.PlayerRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
