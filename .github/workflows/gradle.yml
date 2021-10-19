@@ -25,6 +25,8 @@ jobs:
       run: cd backend; ./gradlew build -x test
     - name: Run tests with Gradle
       run: cd backend; ./gradlew test
+    - name: Analyze with SonarQube
+      run: cd backend; ./gradlew sonarqube
 
 # jobs:
 #   build:
