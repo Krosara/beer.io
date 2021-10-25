@@ -7,7 +7,7 @@ const Navbar = () => {
   // const changeText = (text) => setButtonText(text);
 
   return (
-    <header>
+    <header className="static">
       <button component={Link} to="/scoreboard">
         <div className="font-light bg-btngreen-default hover:bg-btngreen-light mx-16 my-10 absolute w-40 text-center top-0 filter drop-shadow-normal">
           <div className="text-offwhite text-2xl leading-7 my-5">

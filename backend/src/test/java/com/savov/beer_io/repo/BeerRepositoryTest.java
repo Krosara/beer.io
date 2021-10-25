@@ -1,10 +1,15 @@
 package com.savov.beer_io.repo;
 
+import com.savov.beer_io.enums.PlayerRole;
 import com.savov.beer_io.model.Beer;
+import com.savov.beer_io.model.Player;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -68,6 +73,61 @@ class BeerRepositoryTest {
         //Assert
         assertThat(b1Exist).isFalse();
         assertThat(b2Exist).isTrue();
+    }
+
+    @Test
+    void itShouldFindPlayerById() {
+        //Arrange
+        id++;
+        Beer b1 = new Beer(
+                id,
+                "Staropramen",
+                "Pilsner",
+                "Czechia"
+        );
+
+        id++;
+        Beer b2 = new Beer(
+                id,
+                "Kamenitza",
+                "Pilsner",
+                "Bulgaria"
+        );
+        _beerRepository.save(b1);
+        _beerRepository.save(b2);
+        //Act
+        Optional<Beer> result = _beerRepository.findBeerById(b1.getId());
+
+        //Assert
+        AssertionsForClassTypes.assertThat(result).isPresent();
+
+    }
+
+    @Test
+    void itShouldFindNothingIfBeerDoesntExist() {
+        //Arrange
+        id++;
+        Beer b1 = new Beer(
+                id,
+                "Staropramen",
+                "Pilsner",
+                "Czechia"
+        );
+
+        id++;
+        Beer b2 = new Beer(
+                id,
+                "Kamenitza",
+                "Pilsner",
+                "Bulgaria"
+        );
+        _beerRepository.save(b1);
+        _beerRepository.save(b2);
+        //Act
+        Optional<Beer> result = _beerRepository.findBeerById(b2.getId()+1);
+
+        //Assert
+        AssertionsForClassTypes.assertThat(result).isNotPresent();
     }
 
 }

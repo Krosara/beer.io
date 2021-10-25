@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
@@ -76,7 +78,67 @@ class PlayerRepositoryTest {
         assertThat(p2Exist).isTrue();
     }
 
-//    @Test
-//    void findPlayerById() {
-//    }
+    @Test
+    void itShouldFindPlayerById() {
+        //Arrange
+        id++;
+        Player p1 = new Player(
+                id,
+                "Player1",
+                "Player1@gmail.com",
+                "UK",
+                PlayerRole.USER,
+                122L
+        );
+
+        id++;
+        Player p2 = new Player(
+                id,
+                "Player2",
+                "Player2@gmail.com",
+                "UK",
+                PlayerRole.USER,
+                121L
+        );
+        _playerRepository.save(p1);
+        _playerRepository.save(p2);
+        //Act
+        Optional<Player> result = _playerRepository.findPlayerById(p1.getId());
+
+        //Assert
+        assertThat(result).isPresent();
+
+    }
+
+    @Test
+    void itShouldFindNothingIfPlayerDoesntExist() {
+        //Arrange
+        id++;
+        Player p1 = new Player(
+                id,
+                "Player1",
+                "Player1@gmail.com",
+                "UK",
+                PlayerRole.USER,
+                122L
+        );
+
+        id++;
+        Player p2 = new Player(
+                id,
+                "Player2",
+                "Player2@gmail.com",
+                "UK",
+                PlayerRole.USER,
+                121L
+        );
+        _playerRepository.save(p1);
+        _playerRepository.save(p2);
+        //Act
+        Optional<Player> result = _playerRepository.findPlayerById(p2.getId()+1);
+
+        //Assert
+        assertThat(result).isNotPresent();
+
+    }
 }
