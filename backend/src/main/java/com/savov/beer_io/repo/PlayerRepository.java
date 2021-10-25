@@ -12,4 +12,6 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
     void deleteById(int id);
 
     Optional<Player> findPlayerById(int id);
+
+    Boolean existsPlayerByUsername(String username);
 }

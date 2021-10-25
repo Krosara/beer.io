@@ -1,5 +1,6 @@
 package com.savov.beer_io.service;
 
+import com.savov.beer_io.exceptions.PlayerAlreadyExistsException;
 import com.savov.beer_io.exceptions.PlayerNotFoundException;
 import com.savov.beer_io.model.Player;
 import com.savov.beer_io.repo.PlayerRepository;
@@ -11,7 +12,7 @@ import java.util.List;
 
 
 @Service
-@Transactional(Transactional.TxType.NEVER)
+@Transactional
 public class PlayerService {
     private final PlayerRepository playerRepository;
 
@@ -21,7 +22,10 @@ public class PlayerService {
     }
 
 
-    public Player addPlayer(Player player){
+    public Player addPlayer(Player player) throws PlayerAlreadyExistsException {
+        if (playerRepository.existsPlayerByUsername(player.getUsername())){
+            throw new PlayerAlreadyExistsException("Player with username: " + player.getUsername() + " already exists!");
+        }
         return playerRepository.save(player);
     }
 

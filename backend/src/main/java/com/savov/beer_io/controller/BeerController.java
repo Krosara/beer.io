@@ -1,5 +1,6 @@
 package com.savov.beer_io.controller;
 
+import com.savov.beer_io.exceptions.BeerAlreadyExistsException;
 import com.savov.beer_io.model.Beer;
 import com.savov.beer_io.service.BeerService;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class BeerController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Beer> addBeer(@RequestBody Beer beer) {
+    public ResponseEntity<Beer> addBeer(@RequestBody Beer beer) throws BeerAlreadyExistsException {
         Beer newBeer = beerService.addBeer(beer);
         return new ResponseEntity<>(newBeer, HttpStatus.CREATED);
     }

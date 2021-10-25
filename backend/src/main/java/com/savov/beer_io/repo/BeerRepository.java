@@ -13,4 +13,5 @@ public interface BeerRepository extends JpaRepository<Beer, Integer> {
 
     Optional<Beer> findBeerById(Integer id);
 
+    Boolean existsBeerByBrandName(String brandName);
 }

@@ -1,5 +1,6 @@
 package com.savov.beer_io.controller;
 
+import com.savov.beer_io.exceptions.PlayerAlreadyExistsException;
 import com.savov.beer_io.model.Player;
 import com.savov.beer_io.service.PlayerService;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class PlayerController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Player> addPlayer(@RequestBody Player player) {
+    public ResponseEntity<Player> addPlayer(@RequestBody Player player) throws PlayerAlreadyExistsException {
         Player newPlayer = playerService.addPlayer(player);
         return new ResponseEntity<>(newPlayer, HttpStatus.CREATED);
     }
