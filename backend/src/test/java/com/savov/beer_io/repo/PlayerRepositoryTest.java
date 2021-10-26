@@ -1,6 +1,7 @@
 package com.savov.beer_io.repo;
 
 import com.savov.beer_io.enums.PlayerRole;
+import com.savov.beer_io.model.Beer;
 import com.savov.beer_io.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -140,5 +141,34 @@ class PlayerRepositoryTest {
         //Assert
         assertThat(result).isNotPresent();
 
+    }
+
+    @Test
+    void itShouldCheckIfPlayerEmailExists() {
+        //Arrange
+        String username = "player1";
+        Player p = new Player(
+                id,
+                username,
+                "email@gmail.com",
+                "UK",
+                PlayerRole.USER,
+                121L
+        );
+        _playerRepository.save(p);
+        //Act
+        boolean expected = _playerRepository.existsPlayerByUsername(username);
+        //Assert
+        assertThat(expected).isTrue();
+    }
+
+    @Test
+    void itShouldCheckIfBeerBrandNameDoesNotExist() {
+        //Arrange
+        String username = "player1";
+        //Act
+        boolean expected = _playerRepository.existsPlayerByUsername(username);
+        //Assert
+        assertThat(expected).isFalse();
     }
 }

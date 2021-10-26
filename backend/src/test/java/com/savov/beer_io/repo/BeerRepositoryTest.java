@@ -1,8 +1,6 @@
 package com.savov.beer_io.repo;
 
-import com.savov.beer_io.enums.PlayerRole;
 import com.savov.beer_io.model.Beer;
-import com.savov.beer_io.model.Player;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -128,6 +126,33 @@ class BeerRepositoryTest {
 
         //Assert
         AssertionsForClassTypes.assertThat(result).isNotPresent();
+    }
+
+    @Test
+    void itShouldCheckIfBeerBrandNameExists() {
+        //Arrange
+        String brandName = "Staropramen";
+        Beer b1 = new Beer(
+                id,
+                "Staropramen",
+                "Pilsner",
+                "Czechia"
+        );
+        _beerRepository.save(b1);
+        //Act
+        boolean expected = _beerRepository.existsBeerByBrandName(brandName);
+        //Assert
+        assertThat(expected).isTrue();
+    }
+
+    @Test
+    void itShouldCheckIfBeerBrandNameDoesNotExist() {
+        //Arrange
+        String brandName = "Staropramen";
+        //Act
+        boolean expected = _beerRepository.existsBeerByBrandName(brandName);
+        //Assert
+        assertThat(expected).isFalse();
     }
 
 }

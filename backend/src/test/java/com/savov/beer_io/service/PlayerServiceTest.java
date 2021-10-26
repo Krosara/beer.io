@@ -9,10 +9,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.ArgumentMatchers.anyInt;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.as;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,7 +36,7 @@ class PlayerServiceTest {
     }
 
     @Test
-    void addPlayer() throws PlayerAlreadyExistsException {
+    void canAddPlayer() throws PlayerAlreadyExistsException {
         //Arrange
         Player p1 = new Player(
                 1,
@@ -41,11 +49,33 @@ class PlayerServiceTest {
         //Act
         _ps.addPlayer(p1);
         //Assert
-        verify(playerRepository).save(p1);
+        ArgumentCaptor<Player> playerArgumentCaptor = ArgumentCaptor.forClass(Player.class);
+        verify(playerRepository).save(playerArgumentCaptor.capture());
+        Player capturedPlayer = playerArgumentCaptor.getValue();
+        assertThat(capturedPlayer).isEqualTo(p1);
     }
 
     @Test
-    void findAllPlayers() {
+    void addPlayerWillThrowWhenUsernameIsTaken(){
+        //Arrange
+        Player p1 = new Player(
+                1,
+                "Player1",
+                "player1@gmail.com",
+                "UK",
+                PlayerRole.USER,
+                10L
+        );
+        given(playerRepository.existsPlayerByUsername(p1.getUsername())).willReturn(true);
+        //Assert
+        assertThatThrownBy(() -> _ps.addPlayer(p1)).isInstanceOf(PlayerAlreadyExistsException.class).hasMessageContaining("Player with username: " + p1.getUsername() + " already exists!");
+
+        verify(playerRepository, never()).save(any());
+    }
+
+
+    @Test
+    void canFindAllPlayers() {
         //Act
         _ps.findAllPlayers();
         //Assert
@@ -53,7 +83,7 @@ class PlayerServiceTest {
     }
 
     @Test
-    void updatePlayer() {
+    void canUpdatePlayer() {
         //Arrange
         Player p1 = new Player(
                 1,
@@ -71,7 +101,7 @@ class PlayerServiceTest {
 
     @Test
     @Disabled
-    void findPlayerById() throws PlayerNotFoundException{
+    void canFindPlayerById() throws PlayerAlreadyExistsException, PlayerNotFoundException{
         //Arrange
         Player p1 = new Player(
                 1,
@@ -81,17 +111,25 @@ class PlayerServiceTest {
                 PlayerRole.USER,
                 10L
         );
+        given(_ps.addPlayer(p1)).willReturn(p1);
         //Act
-        _ps.findPlayerById(anyInt());
+        _ps.findPlayerById(1);
         //Assert
-        verify(playerRepository).findById(anyInt());
+
+        verify(playerRepository).findById(1);
     }
 
     @Test
-    void deletePlayer() {
+    void canDeletePlayer() {
         //Act
         _ps.deletePlayer(1);
         //Assert
         verify(playerRepository).deleteById(1);
     }
+
+    @Test
+    void canDeleteWillThrowIfPlayerDoesNotExist() throws PlayerNotFoundException {
+
+    }
+
 }

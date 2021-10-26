@@ -9,13 +9,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,7 +32,7 @@ class BeerServiceTest {
     }
 
     @Test
-    void addBeer() throws BeerAlreadyExistsException{
+    void canAddBeer() throws BeerAlreadyExistsException {
         //Arrange
         Beer b1 = new Beer(
                 1,
@@ -42,11 +43,30 @@ class BeerServiceTest {
         //Act
         _bs.addBeer(b1);
         //Assert
-        verify(beerRepository).save(b1);
+        ArgumentCaptor<Beer> beerArgumentCaptor = ArgumentCaptor.forClass(Beer.class);
+        verify(beerRepository).save(beerArgumentCaptor.capture());
+        Beer capturedBeer = beerArgumentCaptor.getValue();
+        assertThat(capturedBeer).isEqualTo(b1);
     }
 
     @Test
-    void findAllBeers() {
+    void addBeerWillThrowWhenBrandNameIsTaken() {
+        //Arrange
+        Beer b1 = new Beer(
+                1,
+                "Staropramen",
+                "Pilsner",
+                "Czechia"
+        );
+        given(beerRepository.existsBeerByBrandName(b1.getBrandName())).willReturn(true);
+        //Assert
+        assertThatThrownBy(() -> _bs.addBeer(b1)).isInstanceOf(BeerAlreadyExistsException.class).hasMessageContaining("Beer with brandName: " + b1.getBrandName() + " already exists!");
+
+        verify(beerRepository, never()).save(any());
+    }
+
+    @Test
+    void canFindAllBeers() {
         //Act
         _bs.findAllBeers();
         //Assert
@@ -54,7 +74,7 @@ class BeerServiceTest {
     }
 
     @Test
-    void updateBeer() {
+    void canUpdateBeer() {
         Beer b = new Beer(
                 1,
                 "PilsnerUrquel",
@@ -69,7 +89,7 @@ class BeerServiceTest {
 
     @Test
     @Disabled
-    void findBeerById() throws BeerNotFoundException, BeerAlreadyExistsException {
+    void canFindBeerById() throws BeerNotFoundException, BeerAlreadyExistsException {
         //Arrange
         Beer b1 = new Beer(
                 1,
@@ -78,17 +98,25 @@ class BeerServiceTest {
                 "Czechia"
         );
         _bs.addBeer(b1);
+        ArgumentCaptor<Beer> beerArgumentCaptor = ArgumentCaptor.forClass(Beer.class);
+        verify(beerRepository).save(beerArgumentCaptor.capture());
+        Beer capturedBeer = beerArgumentCaptor.getValue();
         //Act
-        _bs.findBeerById(b1.getId());
+        _bs.findBeerById(1);
         //Assert
-        verify(beerRepository).findById(anyInt());
+        verify(beerRepository).findById(ArgumentMatchers.eq(1));
     }
 
     @Test
-    void deleteBeer() {
+    void canDeleteBeer() {
         //Act
         _bs.deleteBeer(1);
         //Assert
         verify(beerRepository).deleteById(1);
+    }
+
+    @Test
+    void canDeleteWillThrowIfBeerDoesNotExist() throws BeerNotFoundException {
+
     }
 }
