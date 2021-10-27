@@ -13,6 +13,10 @@ module.exports = {
           darker: '#235042',
         },
         bggreen: '#43655A',
+        tbgreen: {
+          default: '#639686',
+          hover: '#568375',
+        },
       },
       fontFamily: {
         work: ['Work Sans, sans-serif'],
