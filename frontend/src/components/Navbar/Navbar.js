@@ -7,21 +7,27 @@ const Navbar = () => {
   // const changeText = (text) => setButtonText(text);
 
   return (
-    <header className="sticky text-offwhite z-50">
-      <button component={Link} to="/scoreboard">
-        <div className="font-light bg-btngreen-default hover:bg-btngreen-light mx-16 my-10 absolute w-36 top-0 filter drop-shadow-normal">
-          <div className="text-xl my-4">Scoreboard</div>
-        </div>
+    <header className="text-offwhite">
+      <button
+        component={Link}
+        to="/scoreboard"
+        className="font-light bg-btngreen-default hover:bg-btngreen-light my-10 w-36 filter drop-shadow-normal ml-16"
+      >
+        <div className="text-xl my-4">Scoreboard</div>
       </button>
-      <button component={Link} to="/logout">
-        <div className="font-light bg-btngreen-darker hover:bg-btngreen-dark mx-16 my-10 absolute w-36 right-52 top-0 filter drop-shadow-normal">
-          <div className="text-xl my-4">Profile</div>
-        </div>
+      <button
+        component={Link}
+        to="/profile"
+        className="font-light bg-btngreen-default hover:bg-btngreen-light my-10 w-36  filter drop-shadow-normal mr-16 float-right"
+      >
+        <div className=" text-xl my-4">Logout</div>
       </button>
-      <button component={Link} to="/profile">
-        <div className="font-light bg-btngreen-default hover:bg-btngreen-light mx-16 my-10 absolute w-36 right-0 top-0 filter drop-shadow-normal">
-          <div className=" text-xl my-4">Logout</div>
-        </div>
+      <button
+        component={Link}
+        to="/logout"
+        className="font-light bg-btngreen-darker hover:bg-btngreen-dark my-10 w-36 filter drop-shadow-normal mr-16 float-right"
+      >
+        <div className="text-xl my-4">Profile</div>
       </button>
     </header>
   );

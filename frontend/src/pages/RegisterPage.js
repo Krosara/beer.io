@@ -1,5 +1,6 @@
 import { playerAPI } from '../api';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const handleOnSubmit = () => {
@@ -20,60 +21,60 @@ const Register = () => {
     <form
       action="post"
       onSubmit={handleOnSubmit}
-      className="text-center origin-bottom bg-btngreen-default h-96 w-96 absolute filter drop-shadow-normal text-offwhite font-work "
+      className="text-center bg-btngreen-default  w-96 filter drop-shadow-normal text-offwhite "
+      autoComplete="off"
     >
-      <input
-        className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16"
-        type="text"
-        name="username"
-        id="username"
-        ref={refUsername}
-        placeholder="Username"
-      />
-      <br />
-      <input
-        className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60"
-        type="text"
-        name="email"
-        id="email"
-        ref={refEmail}
-        placeholder="Email"
-      />
-      <br />
-      <input
-        className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60"
-        type="text"
-        name="country"
-        id="country"
-        ref={refCountry}
-        placeholder="Country"
-      />
-      <br />
-      <input
-        className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 "
-        type="text"
-        name="password"
-        id="password"
-        ref={refPassword}
-        placeholder="Password"
-      />
-      <br />
-      <input
-        className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60"
-        type="text"
-        name="confirmPassword"
-        id="confirmPassword"
-        ref={refConfirmPassword}
-        placeholder="Confirm password"
-      />
-      <br />
-      <button type="submit" className="bg-tbgreen-default">
+      <div className="divide-y divide-tbgreen-border">
+        <input
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+          type="text"
+          name="username"
+          id="username"
+          ref={refUsername}
+          placeholder="Username"
+        />
+        <input
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+          type="text"
+          name="email"
+          id="email"
+          ref={refEmail}
+          placeholder="Email"
+        />
+        <input
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+          type="text"
+          name="country"
+          id="country"
+          ref={refCountry}
+          placeholder="Country"
+        />
+        <input
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+          type="password"
+          name="password"
+          id="password"
+          ref={refPassword}
+          placeholder="Password"
+        />
+        <input
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          ref={refConfirmPassword}
+          placeholder="Confirm password"
+        />
+      </div>
+      <button
+        type="submit"
+        className="bg-tbgreen-default mt-11 w-36 h-7 rounded-xl hover:bg-tbgreen-hover  focus:bg-tbgreen-hover focus:outline-none border border-tbgreen-border"
+      >
         Register
       </button>
-      <br />
-      <div>
+      <div className="text-xs mt-3 pb-10">
         <span>Already have an account? </span>
-        <a className="font-bold" href="/login">
+        <a className="font-bold underline" href="/login" component={Link}>
           Login
         </a>
       </div>
