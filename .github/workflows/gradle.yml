@@ -30,7 +30,7 @@ name: Build
 on:
   push:
     branches:
-      - master # or the name of your main branch
+#       - master # or the name of your main branch
       - development
   pull_request:
     types: [opened, synchronize, reopened]
