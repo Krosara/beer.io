@@ -6,6 +6,8 @@ import Login from './pages/LoginPage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 
+import { ReactComponent as Logo } from './assets/logo+text.svg';
+
 const Application = () => {
   // const [state, setState] = React.useState(null);
 
@@ -20,15 +22,18 @@ const Application = () => {
         {/* <Main players={state} /> */}
         <Navbar />
         <Switch>
-          <Route exact path="/">
-            <LandingPage />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
+          <div>
+            <Logo className=" mb-14 pl-2 mx-auto small:w-9/12 small:h-3/4" />
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
+          </div>
         </Switch>
       </Router>
     </div>

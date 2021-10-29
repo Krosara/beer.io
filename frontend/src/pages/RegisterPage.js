@@ -2,13 +2,17 @@ import { playerAPI } from '../api';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-const Register = () => {
-  const handleOnSubmit = () => {
+const Register = ({ history }) => {
+  const handleOnSubmit = (e) => {
+    // e.preventDefault();
+
     playerAPI.createPlayer(
       refUsername.current.value,
       refEmail.current.value,
       refCountry.current.value
     );
+
+    // history.push('/');
   };
 
   const refUsername = useRef(null);
@@ -21,12 +25,12 @@ const Register = () => {
     <form
       action="post"
       onSubmit={handleOnSubmit}
-      className="text-center bg-btngreen-default  w-96 filter drop-shadow-normal text-offwhite "
+      className="text-center bg-btngreen-default w-96 filter drop-shadow-normal text-offwhite mx-auto xs:w-full xs:h-full"
       autoComplete="off"
     >
       <div className="divide-y divide-tbgreen-border">
         <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16 xs:mt-12 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
           type="text"
           name="username"
           id="username"
@@ -68,7 +72,7 @@ const Register = () => {
       </div>
       <button
         type="submit"
-        className="bg-tbgreen-default mt-11 w-36 h-7 rounded-xl hover:bg-tbgreen-hover  focus:bg-tbgreen-hover focus:outline-none border border-tbgreen-border"
+        className="bg-tbgreen-default mt-11 w-36 h-7 rounded-xl hover:bg-tbgreen-hover  focus:bg-tbgreen-hover focus:outline-none border border-tbgreen-border xs:mt-6"
       >
         Register
       </button>

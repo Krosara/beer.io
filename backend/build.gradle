@@ -44,6 +44,7 @@ sonarqube {
     properties {
         property "sonar.projectKey", "beer.io"
     }
+
 }
 
 test {

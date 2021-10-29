@@ -14,12 +14,12 @@ const LoginPage = () => {
     <form
       action="post"
       onSubmit={handleOnSubmit}
-      className="text-center bg-btngreen-default  w-96 filter drop-shadow-normal text-offwhite "
+      className="text-center bg-btngreen-default  w-96 filter drop-shadow-normal text-offwhite mx-auto xs:w-full xs:h-full"
       autoComplete="off"
     >
       <div className="divide-y divide-tbgreen-border">
         <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none "
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16 xs:mt-12 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none "
           type="text"
           name="email"
           id="email"
@@ -37,7 +37,7 @@ const LoginPage = () => {
       </div>
       <button
         type="submit"
-        className=" text-lg bg-tbgreen-default mt-11 w-36 h-7 rounded-xl hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+        className=" text-lg bg-tbgreen-default mt-11 w-36 h-7 rounded-xl hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none "
       >
         Login
       </button>
