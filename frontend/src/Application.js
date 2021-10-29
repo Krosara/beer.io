@@ -23,14 +23,14 @@ const Application = () => {
         <Navbar />
         <Switch>
           <div>
-            <Logo className=" mb-14 pl-2 mx-auto small:w-9/12 small:h-3/4" />
+            <Logo className=" mb-14 small:mb-6 small:-mt-2 pl-2 mx-auto small:w-9/12 small:h-3/4" />
             <Route exact path="/">
               <LandingPage />
             </Route>
-            <Route path="/login">
+            <Route exact path="/login">
               <Login />
             </Route>
-            <Route path="/register">
+            <Route exact path="/register">
               <Register />
             </Route>
           </div>

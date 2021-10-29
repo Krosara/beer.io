@@ -1,25 +1,22 @@
 import { playerAPI } from '../api';
-import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
-const Register = ({ history }) => {
+const Register = () => {
   const handleOnSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
-    playerAPI.createPlayer(
-      refUsername.current.value,
-      refEmail.current.value,
-      refCountry.current.value
-    );
+    playerAPI.createPlayer(username, email, country);
 
-    // history.push('/');
+    history.push('/');
   };
 
-  const refUsername = useRef(null);
-  const refEmail = useRef(null);
-  const refCountry = useRef(null);
-  const refPassword = useRef(null);
-  const refConfirmPassword = useRef(null);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [country, setCountry] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const history = useHistory();
 
   return (
     <form
@@ -30,49 +27,54 @@ const Register = ({ history }) => {
     >
       <div className="divide-y divide-tbgreen-border">
         <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16 xs:mt-12 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16 xs:mt-8 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
           type="text"
           name="username"
           id="username"
-          ref={refUsername}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
         />
         <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
           type="text"
           name="email"
           id="email"
-          ref={refEmail}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
         <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
           type="text"
           name="country"
           id="country"
-          ref={refCountry}
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
           placeholder="Country"
         />
         <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
           type="password"
           name="password"
           id="password"
-          ref={refPassword}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
         <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
           type="password"
           name="confirmPassword"
           id="confirmPassword"
-          ref={refConfirmPassword}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="Confirm password"
         />
       </div>
       <button
         type="submit"
-        className="bg-tbgreen-default mt-11 w-36 h-7 rounded-xl hover:bg-tbgreen-hover  focus:bg-tbgreen-hover focus:outline-none border border-tbgreen-border xs:mt-6"
+        className="bg-tbgreen-default mt-11 w-36 h-7 rounded-xl hover:bg-tbgreen-hover  focus:bg-tbgreen-hover focus:outline-none border border-tbgreen-border xs:mt-6 focus:placeholder-transparent"
       >
         Register
       </button>

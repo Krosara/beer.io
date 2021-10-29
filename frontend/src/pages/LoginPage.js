@@ -19,7 +19,7 @@ const LoginPage = () => {
     >
       <div className="divide-y divide-tbgreen-border">
         <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16 xs:mt-12 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none "
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16 xs:mt-8 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
           type="text"
           name="email"
           id="email"
@@ -27,7 +27,7 @@ const LoginPage = () => {
           placeholder="Email"
         />
         <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none "
+          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
           type="password"
           name="password"
           id="password"

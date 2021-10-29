@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-// import { ReactComponent as Scoreboard } from '../../../src/assets/trophy.svg';
-// import { ReactComponent as Profile } from '../../../src/assets/user.svg';
-// import { ReactComponent as Logout } from '../../../src/assets/logout.svg';
+import { ReactComponent as Scoreboard } from '../../../src/assets/trophy.svg';
+import { ReactComponent as Profile } from '../../../src/assets/user.svg';
+import { ReactComponent as Logout } from '../../../src/assets/logout.svg';
 
 const Navbar = () => {
   // const [buttonText, setButtonText] = useState('');
@@ -33,29 +33,29 @@ const Navbar = () => {
           <div className="text-xl my-4">Profile</div>
         </button>
       </header>
-      {/* <header className="big:hidden grid gap-4 grid-cols-3 mt-4 justify-items-center">
+      <header className="big:hidden grid gap-4 grid-cols-3 mt-4 justify-items-center">
         <button
-          className="bg-btngreen-default hover:bg-btngreen-light filter drop-shadow-normal rounded-full h-16 w-16"
+          className="bg-btngreen-default hover:bg-btngreen-light filter drop-shadow-normal rounded-full h-14 w-14"
           component={Link}
           to="/scoreboard"
         >
-          <Scoreboard className="w-auto h-auto" />
+          <Scoreboard className=" m-auto w-2/3 h-2/3" />
         </button>
         <button
-          className="bg-btngreen-darker hover:bg-btngreen-dark filter drop-shadow-normal rounded-full h-16 w-16"
+          className="bg-btngreen-darker hover:bg-btngreen-dark filter drop-shadow-normal rounded-full h-14 w-14"
           component={Link}
           to="/profile"
         >
-          <Profile />
+          <Profile className="m-auto w-3/4 h-3/4" />
         </button>
         <button
-          className="bg-btngreen-default hover:bg-btngreen-light filter drop-shadow-normal rounded-full h-16 w-16"
+          className="bg-btngreen-default hover:bg-btngreen-light filter drop-shadow-normal rounded-full h-14 w-14"
           component={Link}
           to="/logout"
         >
-          <Logout />
+          <Logout className="m-auto w-2/3 h-2/3" />
         </button>
-      </header> */}
+      </header>
     </div>
   );
 };
