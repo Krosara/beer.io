@@ -32,8 +32,8 @@ on:
     branches:
 #       - master # or the name of your main branch
       - development
-  pull_request:
-    types: [opened, synchronize, reopened]
+#   pull_request:
+#     types: [opened, synchronize, reopened]
 jobs:
   build:
     name: Build
