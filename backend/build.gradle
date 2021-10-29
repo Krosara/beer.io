@@ -2,6 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.5.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "org.sonarqube" version "3.3"
+
 }
 
 group = 'com.savov'
@@ -36,6 +38,12 @@ dependencies {
 
 //    implementation 'org.springframework.boot:spring-boot-starter-security:2.5.4'
 //    testImplementation 'org.springframework.security:spring-security-test:5.5.2'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "beer.io"
+    }
 }
 
 test {

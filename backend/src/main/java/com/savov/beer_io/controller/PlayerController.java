@@ -1,14 +1,10 @@
 package com.savov.beer_io.controller;
 
+import com.savov.beer_io.exceptions.PlayerAlreadyExistsException;
 import com.savov.beer_io.model.Player;
 import com.savov.beer_io.service.PlayerService;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Tuple;
@@ -37,7 +33,7 @@ public class PlayerController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Player> addPlayer(@RequestBody Player player) {
+    public ResponseEntity<Player> addPlayer(@RequestBody Player player) throws PlayerAlreadyExistsException {
         Player newPlayer = playerService.addPlayer(player);
         return new ResponseEntity<>(newPlayer, HttpStatus.CREATED);
     }

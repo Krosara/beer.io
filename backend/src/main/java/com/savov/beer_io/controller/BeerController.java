@@ -1,5 +1,6 @@
 package com.savov.beer_io.controller;
 
+import com.savov.beer_io.exceptions.BeerAlreadyExistsException;
 import com.savov.beer_io.model.Beer;
 import com.savov.beer_io.service.BeerService;
 import org.springframework.http.HttpStatus;
@@ -26,13 +27,13 @@ public class BeerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Beer> getBeerById (@PathVariable("id") int id) {
+    public ResponseEntity<Beer> getBeerById (@PathVariable("id") Integer id) {
         Beer beer = beerService.findBeerById(id);
         return new ResponseEntity<>(beer, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Beer> addBeer(@RequestBody Beer beer) {
+    public ResponseEntity<Beer> addBeer(@RequestBody Beer beer) throws BeerAlreadyExistsException {
         Beer newBeer = beerService.addBeer(beer);
         return new ResponseEntity<>(newBeer, HttpStatus.CREATED);
     }
@@ -44,7 +45,7 @@ public class BeerController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteBeer(@PathVariable("id") int id) {
+    public ResponseEntity<?> deleteBeer(@PathVariable("id") Integer id) {
 
         boolean isDeleted = beerService.deleteBeer(id);
 

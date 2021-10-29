@@ -13,9 +13,14 @@ module.exports = {
           darker: '#235042',
         },
         bggreen: '#43655A',
+        tbgreen: {
+          default: '#639686',
+          hover: '#568375',
+          border: '#3A574E',
+        },
       },
       fontFamily: {
-        work: ['Work Sans, sans-serif'],
+        work: ['Work Sans'],
       },
       dropShadow: {
         // normal: '2.5rem -1rem 0.25rem rgba(0, 0, 0, 0.25)',

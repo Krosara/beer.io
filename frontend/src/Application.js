@@ -1,7 +1,7 @@
 import React from 'react';
 import Main from './components/Main/Main';
 import Register from './pages/RegisterPage';
-import Landing from './pages/LandingPage';
+import LandingPage from './pages/LandingPage';
 import Login from './pages/LoginPage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
@@ -15,17 +15,23 @@ const Application = () => {
   // console.log(state);
 
   return (
-    <Router>
-      {/* <Main players={state} /> */}
-      <Navbar />
-      <Switch>
-        <Route exact path="/">
-          {/* <Landing /> */}
-        </Route>
-        <Route path="/login">{/* <Login /> */}</Route>
-        <Route path="/register">{/* <Register /> */}</Route>
-      </Switch>
-    </Router>
+    <div className="font-work subpixel-antialiased">
+      <Router>
+        {/* <Main players={state} /> */}
+        <Navbar />
+        <Switch>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
   );
 };
 
