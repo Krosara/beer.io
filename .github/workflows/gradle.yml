@@ -67,5 +67,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 #         run: cd backend; ./gradlew build sonarqube --info 
-
           run: cd backend; ./gradlew sonarqube --info 
