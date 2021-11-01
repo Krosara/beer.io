@@ -88,7 +88,6 @@ class BeerServiceTest {
     }
 
     @Test
-    @Disabled
     void canFindBeerById() throws BeerNotFoundException, BeerAlreadyExistsException {
         //Arrange
         Beer b1 = new Beer(
@@ -101,10 +100,11 @@ class BeerServiceTest {
         ArgumentCaptor<Beer> beerArgumentCaptor = ArgumentCaptor.forClass(Beer.class);
         verify(beerRepository).save(beerArgumentCaptor.capture());
         Beer capturedBeer = beerArgumentCaptor.getValue();
+        when(beerRepository.findBeerById(1)).thenReturn(Optional.of(b1));
         //Act
-        _bs.findBeerById(1);
+        Beer result = _bs.findBeerById(1);
         //Assert
-        verify(beerRepository).findById(ArgumentMatchers.eq(1));
+        assertThat(capturedBeer).isEqualTo(result);
     }
 
     @Test

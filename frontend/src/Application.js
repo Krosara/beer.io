@@ -3,6 +3,7 @@ import Main from './components/Main/Main';
 import Register from './pages/RegisterPage';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 
@@ -17,26 +18,26 @@ const Application = () => {
   // console.log(state);
 
   return (
-    <div className="font-work subpixel-antialiased">
-      <Router>
-        {/* <Main players={state} /> */}
-        <Navbar />
-        <Switch>
-          <div>
-            <Logo className=" mb-14 small:mb-6 small:-mt-2 pl-2 mx-auto small:w-9/12 small:h-3/4" />
-            <Route exact path="/">
-              <LandingPage />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/register">
-              <Register />
-            </Route>
-          </div>
-        </Switch>
-      </Router>
-    </div>
+    <Router>
+      <Navbar />
+      <Switch>
+        <div>
+          <Logo className=" mb-14 small:mb-6 small:-mt-2 pl-2 mx-auto small:w-9/12 small:h-3/4" />
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/register">
+            <Register />
+          </Route>
+          <Route path="/profile" component={ProfilePage}>
+            <ProfilePage />
+          </Route>
+        </div>
+      </Switch>
+    </Router>
   );
 };
 

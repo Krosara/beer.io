@@ -1,6 +1,9 @@
 import { playerAPI } from '../api';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import Select from 'react-select';
+import countryList from 'react-select-country-list';
+import { DropDownList } from '@progress/kendo-react-dropdowns';
 
 const Register = () => {
   const handleOnSubmit = (e) => {
@@ -17,6 +20,9 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const history = useHistory();
+  const [country1, setCountry1] = useState('');
+
+  const countries = useMemo(() => countryList().getData(), []);
 
   return (
     <form

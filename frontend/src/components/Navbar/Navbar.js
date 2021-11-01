@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { ReactComponent as Scoreboard } from '../../../src/assets/trophy.svg';
-import { ReactComponent as Profile } from '../../../src/assets/user.svg';
-import { ReactComponent as Logout } from '../../../src/assets/logout.svg';
+import { ReactComponent as ScoreboardBtn } from '../../../src/assets/trophy.svg';
+import { ReactComponent as ProfileBtn } from '../../../src/assets/user.svg';
+import { ReactComponent as LogoutBtn } from '../../../src/assets/logout.svg';
+import { useState } from 'react';
 
 const Navbar = () => {
   // const [buttonText, setButtonText] = useState('');
@@ -20,18 +21,16 @@ const Navbar = () => {
         </button>
         <button
           component={Link}
-          to="/profile"
+          to="/logout"
           className="font-light bg-btngreen-default hover:bg-btngreen-light mt-10 w-36  filter drop-shadow-normal mr-16 float-right"
         >
-          <div className=" text-xl my-4">Logout</div>
+          <div className="text-xl my-4">Logout</div>
         </button>
-        <button
-          component={Link}
-          to="/logout"
-          className="font-light bg-btngreen-darker hover:bg-btngreen-dark mt-10 w-36 filter drop-shadow-normal mr-16 float-right"
-        >
-          <div className="text-xl my-4">Profile</div>
-        </button>
+        <Link to="/profile">
+          <button className="font-light bg-btngreen-darker hover:bg-btngreen-dark mt-10 w-36 filter drop-shadow-normal mr-16 float-right">
+            <div className="text-xl my-4">Profile</div>
+          </button>
+        </Link>
       </header>
       <header className="big:hidden grid gap-4 grid-cols-3 mt-4 justify-items-center">
         <button
@@ -39,21 +38,21 @@ const Navbar = () => {
           component={Link}
           to="/scoreboard"
         >
-          <Scoreboard className=" m-auto w-2/3 h-2/3" />
+          <ScoreboardBtn className=" m-auto w-2/3 h-2/3" />
         </button>
         <button
           className="bg-btngreen-darker hover:bg-btngreen-dark filter drop-shadow-normal rounded-full h-14 w-14"
           component={Link}
           to="/profile"
         >
-          <Profile className="m-auto w-3/4 h-3/4" />
+          <ProfileBtn className="m-auto w-3/4 h-3/4" />
         </button>
         <button
           className="bg-btngreen-default hover:bg-btngreen-light filter drop-shadow-normal rounded-full h-14 w-14"
           component={Link}
           to="/logout"
         >
-          <Logout className="m-auto w-2/3 h-2/3" />
+          <LogoutBtn className="m-auto w-2/3 h-2/3" />
         </button>
       </header>
     </div>

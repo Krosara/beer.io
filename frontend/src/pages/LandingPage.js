@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
-import ReactModal from 'react-modal';
+import Modal from 'react-modal';
 
 const LandingPage = () => {
   const [open, setOpen] = useState(false);
 
-  return (
-    <div className="bg-bggreen">
-      <ReactModal isOpen={open}>
-        <button onClick={() => setOpen(false)}>
-          <img src="/assets/exit.svg" alt="" />
-        </button>
-      </ReactModal>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default LandingPage;

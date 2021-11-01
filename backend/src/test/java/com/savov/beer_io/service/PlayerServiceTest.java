@@ -3,6 +3,7 @@ package com.savov.beer_io.service;
 import com.savov.beer_io.enums.PlayerRole;
 import com.savov.beer_io.exceptions.PlayerAlreadyExistsException;
 import com.savov.beer_io.exceptions.PlayerNotFoundException;
+import com.savov.beer_io.model.Beer;
 import com.savov.beer_io.model.Player;
 import com.savov.beer_io.repo.PlayerRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,14 +15,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PlayerServiceTest {
@@ -100,7 +101,6 @@ class PlayerServiceTest {
     }
 
     @Test
-    @Disabled
     void canFindPlayerById() throws PlayerAlreadyExistsException, PlayerNotFoundException{
         //Arrange
         Player p1 = new Player(
@@ -111,12 +111,16 @@ class PlayerServiceTest {
                 PlayerRole.USER,
                 10L
         );
-        given(_ps.addPlayer(p1)).willReturn(p1);
-        //Act
-        _ps.findPlayerById(1);
-        //Assert
 
-        verify(playerRepository).findById(1);
+        _ps.addPlayer(p1);
+        ArgumentCaptor<Player> playerArgumentCaptor = ArgumentCaptor.forClass(Player.class);
+        verify(playerRepository).save(playerArgumentCaptor.capture());
+        Player capturedPlayer = playerArgumentCaptor.getValue();
+        when(playerRepository.findPlayerById(1)).thenReturn(Optional.of(p1));
+        //Act
+        Player result = _ps.findPlayerById(1);
+        //Assert
+        assertThat(capturedPlayer).isEqualTo(result);
     }
 
     @Test
