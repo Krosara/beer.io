@@ -64,7 +64,7 @@ jobs:
       - name: Build with Gradle
         run: cd backend; ./gradlew build
         
-      - name: Build and analyze
+      - name: Analyze with SonarQube
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
