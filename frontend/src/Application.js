@@ -20,22 +20,12 @@ const Application = () => {
   return (
     <Router>
       <Navbar />
+      <Logo className=" mb-14 small:mb-6 small:-mt-2 pl-2 mx-auto small:w-9/12 small:h-3/4" />
       <Switch>
-        <div>
-          <Logo className=" mb-14 small:mb-6 small:-mt-2 pl-2 mx-auto small:w-9/12 small:h-3/4" />
-          <Route exact path="/">
-            <LandingPage />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/register">
-            <Register />
-          </Route>
-          <Route path="/profile" component={ProfilePage}>
-            <ProfilePage />
-          </Route>
-        </div>
+        <Route exact path="/" component={LandingPage}></Route>
+        <Route exact path="/login" component={Login}></Route>
+        <Route exact path="/register" component={Register}></Route>
+        <Route path="/profile" component={ProfilePage}></Route>
       </Switch>
     </Router>
   );
