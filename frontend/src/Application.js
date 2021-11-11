@@ -4,6 +4,7 @@ import Register from './pages/RegisterPage';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
+import GamePage from './pages/GamePage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 
@@ -26,6 +27,7 @@ const Application = () => {
         <Route exact path="/login" component={Login}></Route>
         <Route exact path="/register" component={Register}></Route>
         <Route path="/profile" component={ProfilePage}></Route>
+        <Route exact path="/play" component={GamePage} />
       </Switch>
     </Router>
   );
