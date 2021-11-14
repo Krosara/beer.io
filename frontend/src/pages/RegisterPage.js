@@ -1,155 +1,112 @@
 import { playerAPI } from '../api';
-import { Fragment, useState, useMemo } from 'react';
+import { Fragment, useState, useMemo, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import TextField from '../components/TextField';
+import CountriesDropDown from '../components/CountriesDropDown';
 import countryList from 'react-select-country-list';
-import { Listbox } from '@headlessui/react';
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
+// import { Listbox } from '@headlessui/react';
+// import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
+import * as Yup from 'yup';
+import { ErrorMessage, useField, Formik, Form } from 'formik';
 
 const Register = () => {
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
+  // const handleOnSubmit = (e) => {
+  //   e.preventDefault();
 
-    playerAPI.createPlayer(username, email, country);
+  //   playerAPI.createPlayer(username, email, country);
 
-    history.push('/');
-  };
-  let countries = useMemo(() => countryList().getData(), []);
+  //   history.push('/');
+  // };
+
+  const validation = Yup.object({
+    username: Yup.string().required('Username is required'),
+    email: Yup.string().email('Email is invalid').required('Email is required'),
+    country: Yup.string().required('Country is required'),
+  });
+
+  const countries = useMemo(() => countryList().getData(), []);
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [country, setCountry] = useState('');
+  const [country, setCountry] = useState(countries[156]);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const history = useHistory();
+  // const history = useHistory();
+
+  const refUsername = useRef(null);
+  const refEmail = useRef(null);
+  const refCountry = useRef(null);
+  const refPassword = useRef(null);
+  const refConfirmPassword = useRef(null);
 
   return (
-    <form
-      action="post"
-      onSubmit={handleOnSubmit}
-      className="text-center bg-btngreen-default w-96 filter drop-shadow-normal text-offwhite mx-auto xs:w-full xs:h-full"
-      autoComplete="off"
+    <Formik
+      initialValues={{
+        username: '',
+        email: '',
+        country: '',
+      }}
     >
-      <div className="divide-y divide-tbgreen-border">
-        <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16 xs:mt-8 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
-          type="text"
-          name="username"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
-        />
-        <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
-          type="text"
-          name="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-        {/* <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
-          type="text"
-          name="country"
-          id="country"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-          placeholder="Country"
-        /> */}
-        <Listbox value={country} onChange={setCountry}>
-          <Listbox.Button className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent">
-            {/* <Listbox.Label className=" text-white text-opacity-60 text-center">
-              Country
-            </Listbox.Label> */}
-            <span className=" text-center ml-7">{country.label}</span>
-            <SelectorIcon
-              className=" h-5 w-5 float-right mr-2 text-gray-300"
-              aria-hidden="true"
+      {(formik) => (
+        <Form
+          action="post"
+          // onSubmit={handleOnSubmit}
+          className="text-center bg-btngreen-default w-96 filter drop-shadow-normal text-offwhite mx-auto pt-16 xs:w-full xs:h-full"
+          autoComplete="off"
+        >
+          <div className="divide-y divide-tbgreen-border">
+            <TextField
+              type="text"
+              id="username"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
             />
-          </Listbox.Button>
-
-          <Listbox.Options className=" z-50 mt-1 w-full max-h-48 bg-btngreen-dark text-offwhite overflow-auto ">
-            {countries.map((country) => (
-              <Listbox.Option
-                key={country.label}
-                className={({ active }) =>
-                  classNames(
-                    active ? 'text-white bg-tbgreen-hover' : 'text-offwhite',
-                    'select-none relative py-2 pl-3 pr-9'
-                  )
-                }
-                value={country}
-              >
-                {({ selected, active }) => (
-                  <>
-                    <div className="flex items-center">
-                      <span
-                        className={classNames(
-                          selected ? 'font-bold' : 'font-normal',
-                          'ml-3 block truncate'
-                        )}
-                      >
-                        {country.label}
-                      </span>
-                    </div>
-
-                    {selected ? (
-                      <span
-                        className={classNames(
-                          active ? 'text-white' : 'text-indigo-600',
-                          'absolute inset-y-0 right-0 flex items-center pr-4'
-                        )}
-                      >
-                        <CheckIcon
-                          className="h-5 w-5 text-offwhite"
-                          aria-hidden="true"
-                        />
-                      </span>
-                    ) : null}
-                  </>
-                )}
-              </Listbox.Option>
-            ))}
-          </Listbox.Options>
-        </Listbox>
-
-        <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Confirm password"
-        />
-      </div>
-      <button
-        type="submit"
-        className="bg-tbgreen-default mt-11 w-36 h-7 rounded-xl hover:bg-tbgreen-hover  focus:bg-tbgreen-hover focus:outline-none border border-tbgreen-border xs:mt-6 focus:placeholder-transparent"
-      >
-        Register
-      </button>
-      <div className="text-xs mt-3 pb-10">
-        <span>Already have an account? </span>
-        <a className="font-bold underline" href="/login" component={Link}>
-          Login
-        </a>
-      </div>
-    </form>
+            <TextField
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+            />
+            <CountriesDropDown value={country} onChange={setCountry} />
+            <TextField
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+            />
+            <TextField
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm password"
+              {...console.log(
+                `Username:${username} Email:${email} Country:${country.label} Password:${password} Confirm:${confirmPassword}`
+              )}
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-tbgreen-default mt-11 w-36 h-7 rounded-xl hover:bg-tbgreen-hover  focus:bg-tbgreen-hover focus:outline-none border border-tbgreen-border xs:mt-6 focus:placeholder-transparent"
+          >
+            Register
+          </button>
+          <div className="text-xs mt-3 pb-10">
+            <span>Already have an account? </span>
+            <a className="font-bold underline" href="/login" component={Link}>
+              Login
+            </a>
+          </div>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

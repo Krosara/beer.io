@@ -37,6 +37,9 @@ module.exports = {
         432: '27rem',
         424: '26.5rem',
       },
+      zIndex: {
+        top: '9999',
+      },
     },
   },
   variants: {
