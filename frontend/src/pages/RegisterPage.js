@@ -33,11 +33,11 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   // const history = useHistory();
 
-  const refUsername = useRef(null);
-  const refEmail = useRef(null);
-  const refCountry = useRef(null);
-  const refPassword = useRef(null);
-  const refConfirmPassword = useRef(null);
+  // const refUsername = useRef(null);
+  // const refEmail = useRef(null);
+  // const refCountry = useRef(null);
+  // const refPassword = useRef(null);
+  // const refConfirmPassword = useRef(null);
 
   return (
     <Formik
@@ -88,7 +88,7 @@ const Register = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm password"
               {...console.log(
-                `Username:${username} Email:${email} Country:${country.label} Password:${password} Confirm:${confirmPassword}`
+                `Username:${username}\nEmail:${email}\nCountry:${country.label}\nPassword:${password}\nConfirm:${confirmPassword}`
               )}
             />
           </div>

@@ -1,38 +1,43 @@
 import { playerAPI } from '../api';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import TextField from '../components/TextField';
 
 const LoginPage = () => {
-  const handleOnSubmit = () => {
-    playerAPI.createPlayer(refEmail.current.value);
-  };
+  // const handleOnSubmit = () => {
+  //   playerAPI.createPlayer(refEmail.current.value);
+  // };
 
-  const refEmail = useRef(null);
-  const refPassword = useRef(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // const refEmail = useRef(null);
+  // const refPassword = useRef(null);
 
   return (
     <form
       action="post"
-      onSubmit={handleOnSubmit}
-      className="text-center bg-btngreen-default  w-96 filter drop-shadow-normal text-offwhite mx-auto xs:w-full xs:h-full"
+      // onSubmit={handleOnSubmit}
+      className="text-center bg-btngreen-default  w-96 filter drop-shadow-normal text-offwhite mx-auto xs:w-full xs:h-full pt-16 xs:mt-16"
       autoComplete="off"
     >
       <div className="divide-y divide-tbgreen-border">
-        <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 mt-16 xs:mt-8 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
-          type="text"
-          name="email"
+        <TextField
+          type="email"
           id="email"
-          ref={refEmail}
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
-        <input
-          className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent"
+        <TextField
           type="password"
-          name="password"
           id="password"
-          ref={refPassword}
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
+          {...console.log(`Email:${email}\nPassword:${password}`)}
         />
       </div>
       <button
