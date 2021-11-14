@@ -29,14 +29,14 @@ const Navbar = () => {
         >
           <div className="text-xl my-4">Logout</div>
         </button>
-        {/* <Link to="/profile"> */}
-        <button className="font-light bg-btngreen-darker hover:bg-btngreen-dark mt-10 w-36 filter drop-shadow-normal mr-16 float-right">
-          <div className="text-xl my-4">
-            Profile
-            <ProfilePage showModal={showModal} setShowModal={setShowModal} />
-          </div>
-        </button>
-        {/* </Link> */}
+        <Link to="/profile">
+          <button className="font-light bg-btngreen-darker hover:bg-btngreen-dark mt-10 w-36 filter drop-shadow-normal mr-16 float-right">
+            <div className="text-xl my-4">
+              Profile
+              {/* <ProfilePage showModal={showModal} setShowModal={setShowModal} /> */}
+            </div>
+          </button>
+        </Link>
       </header>
       <header className="big:hidden grid gap-4 grid-cols-3 mt-4 justify-items-center">
         <button

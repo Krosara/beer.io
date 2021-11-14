@@ -17,6 +17,7 @@ const Register = () => {
 
     history.push('/');
   };
+  let countries = useMemo(() => countryList().getData(), []);
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -24,8 +25,6 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const history = useHistory();
-
-  const countries = useMemo(() => countryList().getData(), []);
 
   return (
     <form
@@ -64,14 +63,17 @@ const Register = () => {
         /> */}
         <Listbox value={country} onChange={setCountry}>
           <Listbox.Button className="text-center bg-tbgreen-default placeholder-white placeholder-opacity-60 h-9 w-full hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none focus:placeholder-transparent">
-            <span className=" text-center">{country.label}</span>
+            {/* <Listbox.Label className=" text-white text-opacity-60 text-center">
+              Country
+            </Listbox.Label> */}
+            <span className=" text-center ml-7">{country.label}</span>
             <SelectorIcon
               className=" h-5 w-5 float-right mr-2 text-gray-300"
               aria-hidden="true"
             />
           </Listbox.Button>
 
-          <Listbox.Options className="z-10 mt-1 w-full max-h-48 bg-btngreen-dark text-offwhite overflow-auto ">
+          <Listbox.Options className=" z-50 mt-1 w-full max-h-48 bg-btngreen-dark text-offwhite overflow-auto ">
             {countries.map((country) => (
               <Listbox.Option
                 key={country.label}

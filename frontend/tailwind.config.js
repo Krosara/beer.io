@@ -31,6 +31,12 @@ module.exports = {
         xs: { max: '400px' },
         big: { min: '688px' },
       },
+      spacing: {
+        740: '46.25rem',
+        592: '37rem',
+        432: '27rem',
+        424: '26.5rem',
+      },
     },
   },
   variants: {
