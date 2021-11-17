@@ -26,6 +26,20 @@ module.exports = {
         // normal: '2.5rem -1rem 0.25rem rgba(0, 0, 0, 0.25)',
         normal: '1rem -0.5rem 0.5rem rgba(0, 0, 0, 0.25)',
       },
+      screens: {
+        small: { max: '687px' },
+        xs: { max: '400px' },
+        big: { min: '688px' },
+      },
+      spacing: {
+        740: '46.25rem',
+        592: '37rem',
+        432: '27rem',
+        424: '26.5rem',
+      },
+      zIndex: {
+        top: '9999',
+      },
     },
   },
   variants: {
