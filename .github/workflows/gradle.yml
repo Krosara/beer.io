@@ -40,6 +40,6 @@ jobs:
       - name: Login to Docker
         run: docker login --username=$USERNAME --password=$DOCKER_HUB_PASSWORD
       - name: Build Image
-        run: docker build $USERNAME/$REPOSITORY_NAME:$IMAGE_TAG .
+        run: docker build -t $USERNAME/$REPOSITORY_NAME:$IMAGE_TAG .
       - name: Push Image
         run: docker push $USERNAME/$REPOSITORY_NAME:$IMAGE_TAG
