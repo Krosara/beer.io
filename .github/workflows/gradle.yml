@@ -27,6 +27,7 @@ jobs:
       run: cd backend; ./gradlew test
   
   deploy:
+    needs: [build]
     env:
       DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
       USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
@@ -39,7 +40,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
       - name: Login to Docker
         run: docker login --username=$USERNAME --password=$DOCKER_HUB_PASSWORD
-      - name: Build Image
-        run: docker build -t $USERNAME/$REPOSITORY_NAME:latest .
+#       - name: Build Image
+#         run: docker build -t $USERNAME/$REPOSITORY_NAME:latest .
       - name: Push Image
         run: docker push $USERNAME/$REPOSITORY_NAME:latest
