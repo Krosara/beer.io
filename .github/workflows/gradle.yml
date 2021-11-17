@@ -1,10 +1,5 @@
 name: Java CI
 
-env:
-  DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
-  USERNAME: krosara
-  REPOSITORY_NAME: beer.io
-
 on:
   push:
       branches: 
@@ -32,6 +27,10 @@ jobs:
       run: cd backend; ./gradlew test
   
   deploy:
+    env:
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      REPOSITORY_NAME: beer.io
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout Repository
@@ -41,6 +40,6 @@ jobs:
       - name: Login to Docker
         run: docker login --username=$USERNAME --password=$DOCKER_HUB_PASSWORD
       - name: Build Image
-        run: docker build -t $USERNAME/$REPOSITORY_NAME:$IMAGE_TAG .
+        run: docker build $USERNAME/$REPOSITORY_NAME:$IMAGE_TAG .
       - name: Push Image
         run: docker push $USERNAME/$REPOSITORY_NAME:$IMAGE_TAG
