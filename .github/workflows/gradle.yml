@@ -40,7 +40,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
       - name: Login to Docker
         run: docker login --username=$USERNAME --password=$DOCKER_HUB_PASSWORD
-#       - name: Build Image
-#         run: docker build -t $USERNAME/$REPOSITORY_NAME:$IMAGE_TAG .
+      - name: Build Image
+        run: docker build -t $USERNAME/$REPOSITORY_NAME .
       - name: Push Image
-        run: docker push $USERNAME/$REPOSITORY_NAME:$IMAGE_TAG
+        run: docker push $USERNAME/$REPOSITORY_NAME
