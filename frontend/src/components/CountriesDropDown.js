@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import countryList from 'react-select-country-list';
 import { Listbox } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
-import { propTypes } from 'react-bootstrap/esm/Image';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');

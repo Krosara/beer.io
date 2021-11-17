@@ -1,27 +1,31 @@
-import { playerAPI } from '../api';
-import { Fragment, useState, useMemo, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+// import { playerAPI } from '../api';
+import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import TextField from '../components/TextField';
 import CountriesDropDown from '../components/CountriesDropDown';
 import countryList from 'react-select-country-list';
-// import { Listbox } from '@headlessui/react';
-// import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 import * as Yup from 'yup';
-import { ErrorMessage, useField, Formik, Form } from 'formik';
+import { ErrorMessage, Formik, Form } from 'formik';
 
 const Register = () => {
-  // const handleOnSubmit = (e) => {
-  //   e.preventDefault();
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
 
-  //   playerAPI.createPlayer(username, email, country);
+    // playerAPI.createPlayer(username, email, country);
 
-  //   history.push('/');
-  // };
+    // history.push('/');
+  };
 
   const validation = Yup.object({
     username: Yup.string().required('Username is required'),
     email: Yup.string().email('Email is invalid').required('Email is required'),
     country: Yup.string().required('Country is required'),
+    password: Yup.string()
+      .min(6, 'Password must be at least 6 characters')
+      .required('Password is required'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Confirm password is required'),
   });
 
   const countries = useMemo(() => countryList().getData(), []);
@@ -33,26 +37,24 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   // const history = useHistory();
 
-  // const refUsername = useRef(null);
-  // const refEmail = useRef(null);
-  // const refCountry = useRef(null);
-  // const refPassword = useRef(null);
-  // const refConfirmPassword = useRef(null);
-
   return (
     <Formik
       initialValues={{
-        username: '',
-        email: '',
-        country: '',
+        username: username,
+        email: email,
+        country: country.label,
+        password: password,
+        confirmPassword: confirmPassword,
       }}
+      enableReinitialize
+      validationSchema={validation}
     >
       {(formik) => (
         <Form
           action="post"
-          // onSubmit={handleOnSubmit}
           className="text-center bg-btngreen-default w-96 filter drop-shadow-normal text-offwhite mx-auto pt-16 xs:w-full xs:h-full"
           autoComplete="off"
+          {...console.log(formik.values)}
         >
           <div className="divide-y divide-tbgreen-border">
             <TextField
@@ -74,22 +76,23 @@ const Register = () => {
             <CountriesDropDown value={country} onChange={setCountry} />
             <TextField
               type="password"
-              name="password"
               id="password"
+              name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
             <TextField
               type="password"
-              name="confirmPassword"
               id="confirmPassword"
+              name="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm password"
-              {...console.log(
-                `Username:${username}\nEmail:${email}\nCountry:${country.label}\nPassword:${password}\nConfirm:${confirmPassword}`
-              )}
+              // {...console.log(
+              // `Username:${username}\nEmail:${email}\nCountry:${country.label}\nPassword:${password}\nConfirm:${confirmPassword}`
+              // )}
+              // {...console.log(formik.values)}
             />
           </div>
           <button
@@ -100,9 +103,9 @@ const Register = () => {
           </button>
           <div className="text-xs mt-3 pb-10">
             <span>Already have an account? </span>
-            <a className="font-bold underline" href="/login" component={Link}>
+            <Link className="font-bold underline" to="/login">
               Login
-            </a>
+            </Link>
           </div>
         </Form>
       )}
