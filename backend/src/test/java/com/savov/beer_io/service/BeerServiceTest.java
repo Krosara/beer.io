@@ -4,9 +4,7 @@ import com.savov.beer_io.exceptions.BeerAlreadyExistsException;
 import com.savov.beer_io.exceptions.BeerNotFoundException;
 import com.savov.beer_io.model.Beer;
 import com.savov.beer_io.repo.BeerRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -24,11 +22,11 @@ class BeerServiceTest {
 
     @Mock
     private BeerRepository beerRepository;
-    private BeerService _bs;
+    private BeerServiceImpl _bs;
 
     @BeforeEach
     void setUp() {
-        _bs = new BeerService(beerRepository);
+        _bs = new BeerServiceImpl(beerRepository);
     }
 
     @Test

@@ -1,6 +1,7 @@
 #spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false
 #DB config
 
+
 server:
   error:
     include-message: always
@@ -20,3 +21,22 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-f41zn26m.us.auth0.com
+
+
+#server.error.include-message=always
+#server.error.include-binding-errors=always
+#
+#spring.datasource.password=savov
+#spring.datasource.username=postgres
+#spring.datasource.url=jdbc:postgresql://localhost:5432/beer.io
+#spring.jpa.show-sql=true
+#spring.jpa.hibernate.ddl-auto=update
+#spring.jooq.sql-dialect=org.hibernate.dialect.PostgreSQLDialect
+#spring.security.oauth2.resourceserver.jwt.issuer-uri=https://dev-f41zn26m.us.auth0.com
+
+
