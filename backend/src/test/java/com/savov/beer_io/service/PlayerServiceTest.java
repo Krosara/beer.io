@@ -3,21 +3,17 @@ package com.savov.beer_io.service;
 import com.savov.beer_io.enums.PlayerRole;
 import com.savov.beer_io.exceptions.PlayerAlreadyExistsException;
 import com.savov.beer_io.exceptions.PlayerNotFoundException;
-import com.savov.beer_io.model.Beer;
 import com.savov.beer_io.model.Player;
 import com.savov.beer_io.repo.PlayerRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -29,11 +25,11 @@ class PlayerServiceTest {
 
     @Mock
     private PlayerRepository playerRepository;
-    private PlayerService _ps;
+    private PlayerServiceImpl _ps;
 
     @BeforeEach
     void setUp() {
-        _ps = new PlayerService(playerRepository);
+        _ps = new PlayerServiceImpl(playerRepository);
     }
 
     @Test
