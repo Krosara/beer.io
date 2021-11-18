@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/api/player")
@@ -32,7 +31,7 @@ public class PlayerController {
     @GetMapping
     public List<PlayerDTO> getAllPlayers() {
 
-        return playerService.findAllPlayers().stream().map(player -> modelMapper.map(player, PlayerDTO.class)).collect(toList());
+        return playerService.findAllPlayers().stream().map(player -> modelMapper.map(player, PlayerDTO.class)).toList();
     }
 
     @GetMapping("/{id}")

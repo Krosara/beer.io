@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
 
 @Controller
 @RestController
@@ -31,7 +30,7 @@ public class BeerController {
 
     @GetMapping
     public List<BeerDTO> getAllBeers() {
-        return beerService.findAllBeers().stream().map(beer -> modelMapper.map(beer, BeerDTO.class)).collect(toList());
+        return beerService.findAllBeers().stream().map(beer -> modelMapper.map(beer, BeerDTO.class)).toList();
     }
 
     @GetMapping("/{id}")
