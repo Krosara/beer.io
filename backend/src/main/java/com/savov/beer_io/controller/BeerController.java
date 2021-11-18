@@ -12,7 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Controller
 @RestController
@@ -30,7 +31,7 @@ public class BeerController {
 
     @GetMapping
     public List<BeerDTO> getAllBeers() {
-        return beerService.findAllBeers().stream().map(beer -> modelMapper.map(beer, BeerDTO.class)).collect(Collectors.toList());
+        return beerService.findAllBeers().stream().map(beer -> modelMapper.map(beer, BeerDTO.class)).collect(toList());
     }
 
     @GetMapping("/{id}")
@@ -45,7 +46,7 @@ public class BeerController {
         Beer request = modelMapper.map(beerDto, Beer.class);
         Beer beer = beerService.addBeer(request);
         BeerDTO response = modelMapper.map(beer, BeerDTO.class);
-        return new ResponseEntity<BeerDTO>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")

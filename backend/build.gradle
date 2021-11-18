@@ -49,9 +49,18 @@ sonarqube {
     properties {
         property "sonar.projectKey", "beer.io"
     }
-
 }
+
+jacocoTestReport {
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+
 
 test {
     useJUnitPlatform()
 }
+

@@ -12,7 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/api/player")
@@ -31,7 +32,7 @@ public class PlayerController {
     @GetMapping
     public List<PlayerDTO> getAllPlayers() {
 
-        return playerService.findAllPlayers().stream().map(player -> modelMapper.map(player, PlayerDTO.class)).collect(Collectors.toList());
+        return playerService.findAllPlayers().stream().map(player -> modelMapper.map(player, PlayerDTO.class)).collect(toList());
     }
 
     @GetMapping("/{id}")
@@ -47,7 +48,7 @@ public class PlayerController {
             Player request = modelMapper.map(playerDto, Player.class);
             Player player = playerService.addPlayer(request);
             PlayerDTO response = modelMapper.map(player, PlayerDTO.class);
-            return new ResponseEntity<PlayerDTO>(response, HttpStatus.CREATED);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
