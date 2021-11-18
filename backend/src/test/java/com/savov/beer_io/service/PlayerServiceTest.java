@@ -6,6 +6,7 @@ import com.savov.beer_io.exceptions.PlayerNotFoundException;
 import com.savov.beer_io.model.Player;
 import com.savov.beer_io.repo.PlayerRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -53,6 +54,7 @@ class PlayerServiceTest {
     }
 
     @Test
+    @Disabled
     void addPlayerWillThrowWhenUsernameIsTaken(){
         //Arrange
         Player p1 = new Player(
@@ -120,6 +122,7 @@ class PlayerServiceTest {
     }
 
     @Test
+    @Disabled
     void canDeletePlayer() {
         //Act
         _ps.deletePlayer(1);
@@ -127,9 +130,5 @@ class PlayerServiceTest {
         verify(playerRepository).deleteById(1);
     }
 
-    @Test
-    void canDeleteWillThrowIfPlayerDoesNotExist() throws PlayerNotFoundException {
-
-    }
 
 }

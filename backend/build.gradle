@@ -48,19 +48,37 @@ dependencies {
 sonarqube {
     properties {
         property "sonar.projectKey", "beer.io"
+        property 'sonar.host.url', 'http://localhost:9000'
+//        property "sonar.jacoco.reportPaths", "${project.basedir}/../target/jacoco.exec"
     }
 }
 
 jacocoTestReport {
+    dependsOn test
+
     reports {
-        xml.required = false
-        csv.required = false
-        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+        xml.enabled true
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "com/savov/beer_io/exceptions/*Exception.*",
+                    "com/savov/beer_io/dto/*DTO.*"
+            ])
+        }))
     }
 }
 
+test.finalizedBy jacocoTestReport
+
+tasks.named('sonarqube').configure {
+    dependsOn test
+}
 
 test {
     useJUnitPlatform()
 }
+
+
 
