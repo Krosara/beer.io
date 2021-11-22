@@ -1,10 +1,13 @@
 import { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { useHistory } from 'react-router-dom';
 
 const ProfilePage = () => {
   const [open, setOpen] = useState(true);
 
   const cancelButtonRef = useRef(null);
+
+  const history = useHistory();
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -12,7 +15,7 @@ const ProfilePage = () => {
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto "
         initialFocus={cancelButtonRef}
-        onClose={setOpen}
+        onClose={history.goBack}
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
@@ -64,9 +67,12 @@ const ProfilePage = () => {
                 <button
                   type="button"
                   className=" w-64 h-16 inline-flex justify-center border border-transparent shadow-sm bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setOpen(false);
+                    history.goBack();
+                  }}
                 >
-                  Deactivate
+                  Cancel
                 </button>
                 {/* <button
                   type="button"
