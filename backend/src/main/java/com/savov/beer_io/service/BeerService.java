@@ -1,50 +1,19 @@
 package com.savov.beer_io.service;
 
-import com.savov.beer_io.exceptions.BeerAlreadyExistsException;
-import com.savov.beer_io.exceptions.BeerNotFoundException;
 import com.savov.beer_io.model.Beer;
-import com.savov.beer_io.repo.BeerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
-@Transactional
-public class BeerService {
-    private final BeerRepository beerRepository;
+public interface BeerService {
 
-    @Autowired
-    public BeerService(BeerRepository beerRepository){
-        this.beerRepository = beerRepository;
-    }
+    Beer addBeer(Beer beer);
 
-    public Beer addBeer(Beer beer) throws BeerAlreadyExistsException{
-        if (beerRepository.existsBeerByBrandName(beer.getBrandName())){
-            throw new BeerAlreadyExistsException("Beer with brandName: " + beer.getBrandName() + " already exists!");
-        }
-        return beerRepository.save(beer);
-    }
+    List<Beer> findAllBeers();
 
-    public List<Beer> findAllBeers(){
-        return beerRepository.findAll();
-    }
+    Beer updateBeer(Beer beer);
 
-    public Beer updateBeer(Beer beer){
-        return beerRepository.save(beer);
-    }
+    Beer findBeerById(int id);
 
-    public Beer findBeerById(Integer id) {
-        return beerRepository.findBeerById(id).orElseThrow(() -> new BeerNotFoundException("Beer with ID:" + id + " not found"));
-    }
+    void deleteBeer(int id);
 
-    public Boolean deleteBeer(Integer id){
-        try{
-            beerRepository.deleteById(id);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 }

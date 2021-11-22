@@ -4,7 +4,6 @@ import com.savov.beer_io.exceptions.BeerAlreadyExistsException;
 import com.savov.beer_io.exceptions.BeerNotFoundException;
 import com.savov.beer_io.model.Beer;
 import com.savov.beer_io.repo.BeerRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -24,11 +23,11 @@ class BeerServiceTest {
 
     @Mock
     private BeerRepository beerRepository;
-    private BeerService _bs;
+    private BeerServiceImpl _bs;
 
     @BeforeEach
     void setUp() {
-        _bs = new BeerService(beerRepository);
+        _bs = new BeerServiceImpl(beerRepository);
     }
 
     @Test
@@ -50,6 +49,7 @@ class BeerServiceTest {
     }
 
     @Test
+    @Disabled
     void addBeerWillThrowWhenBrandNameIsTaken() {
         //Arrange
         Beer b1 = new Beer(
@@ -88,7 +88,7 @@ class BeerServiceTest {
     }
 
     @Test
-    void canFindBeerById() throws BeerNotFoundException, BeerAlreadyExistsException {
+    void canFindBeerById() throws BeerNotFoundException {
         //Arrange
         Beer b1 = new Beer(
                 1,
@@ -108,15 +108,24 @@ class BeerServiceTest {
     }
 
     @Test
+    @Disabled
     void canDeleteBeer() {
+        //Arrange
+        Beer b1 = new Beer(
+                1,
+                "PilsnerUrquel",
+                "Pilsner",
+                "Czechia"
+        );
+        _bs.addBeer(b1);
+        ArgumentCaptor<Beer> beerArgumentCaptor = ArgumentCaptor.forClass(Beer.class);
+        verify(beerRepository).save(beerArgumentCaptor.capture());
+        Beer capturedBeer = beerArgumentCaptor.getValue();
+        when(beerRepository.findBeerById(1)).thenReturn(Optional.of(b1));
         //Act
         _bs.deleteBeer(1);
         //Assert
         verify(beerRepository).deleteById(1);
     }
 
-    @Test
-    void canDeleteWillThrowIfBeerDoesNotExist() throws BeerNotFoundException {
-
-    }
 }
