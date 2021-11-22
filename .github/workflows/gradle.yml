@@ -41,10 +41,10 @@ jobs:
       - name: Login to Docker
         run: docker login --username=$USERNAME --password=$DOCKER_HUB_PASSWORD
       - name: Build Frontend Image
-        run: cd frontend; docker build -t $USERNAME/$REPOSITORY_NAME .
+        run: cd frontend; docker build -t $USERNAME/$REPOSITORY_NAME-frontend .
       - name: Push Frontend Image
-        run: cd frontend; docker push $USERNAME/$REPOSITORY_NAME
+        run: cd frontend; docker push $USERNAME/$REPOSITORY_NAME-frontend
       - name: Build Backend Image
-        run: cd backend; docker build -t $USERNAME/$REPOSITORY_NAME .
+        run: cd backend; docker build -t $USERNAME/$REPOSITORY_NAME-backend .
       - name: Push Backend Image
-        run: cd backend; docker push $USERNAME/$REPOSITORY_NAME
+        run: cd backend; docker push $USERNAME/$REPOSITORY_NAME-backend
