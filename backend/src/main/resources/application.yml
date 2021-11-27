@@ -21,11 +21,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://dev-f41zn26m.us.auth0.com
 
 
 #server.error.include-message=always

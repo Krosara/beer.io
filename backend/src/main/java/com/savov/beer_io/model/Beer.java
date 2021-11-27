@@ -17,7 +17,7 @@ public class Beer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private Integer id;
+    private Long id;
     private String brandName;
     private String type;
     private String country;

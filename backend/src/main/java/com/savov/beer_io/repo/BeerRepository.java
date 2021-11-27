@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface BeerRepository extends JpaRepository<Beer, Integer> {
+public interface BeerRepository extends JpaRepository<Beer, Long> {
 
-    void deleteById(int id);
+    void deleteById(Long id);
 
-    Optional<Beer> findBeerById(int id);
+    Optional<Beer> findBeerById(Long id);
 
     Boolean existsBeerByBrandName(String brandName);
 }
