@@ -17,6 +17,7 @@ import java.util.List;
 @Controller
 @RestController
 @RequestMapping("/api/beer")
+@CrossOrigin("http://localhost:3000/")
 public class BeerController {
 
     @Autowired
@@ -34,7 +35,7 @@ public class BeerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BeerDTO> getBeerById (@PathVariable("id") int id) {
+    public ResponseEntity<BeerDTO> getBeerById (@PathVariable("id") Long id) {
         Beer beer = beerService.findBeerById(id);
         BeerDTO beerDTO = modelMapper.map(beer, BeerDTO.class);
         return ResponseEntity.ok().body(beerDTO);
@@ -57,7 +58,7 @@ public class BeerController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteBeer(@PathVariable("id") int id) {
+    public ResponseEntity<?> deleteBeer(@PathVariable("id") Long id) {
 
         Beer result = beerService.findBeerById(id);
 

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BeerDTO {
-    private Integer id;
+    private Long id;
     private String brandName;
     private String type;
     private String country;

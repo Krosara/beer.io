@@ -16,7 +16,7 @@ class BeerRepositoryTest {
 
     @Autowired
     private BeerRepository _beerRepository;
-    static int id = 0;
+    static Long id = 0L;
     @BeforeEach
     void clean() {
         _beerRepository.deleteAll();

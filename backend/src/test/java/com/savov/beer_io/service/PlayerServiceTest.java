@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -26,23 +27,25 @@ class PlayerServiceTest {
 
     @Mock
     private PlayerRepository playerRepository;
+    @Mock
+    private PasswordEncoder passwordEncoder;
     private PlayerServiceImpl _ps;
 
     @BeforeEach
     void setUp() {
-        _ps = new PlayerServiceImpl(playerRepository);
+        _ps = new PlayerServiceImpl(playerRepository, passwordEncoder);
     }
 
     @Test
     void canAddPlayer() throws PlayerAlreadyExistsException {
         //Arrange
         Player p1 = new Player(
-                1,
+                1L,
                 "Player1",
                 "player1@gmail.com",
-                "UK",
+                "test",
                 PlayerRole.USER,
-                10L
+                "UK"
         );
         //Act
         _ps.addPlayer(p1);
@@ -58,12 +61,12 @@ class PlayerServiceTest {
     void addPlayerWillThrowWhenUsernameIsTaken(){
         //Arrange
         Player p1 = new Player(
-                1,
+                1L,
                 "Player1",
                 "player1@gmail.com",
-                "UK",
+                "test",
                 PlayerRole.USER,
-                10L
+                "UK"
         );
         given(playerRepository.existsPlayerByUsername(p1.getUsername())).willReturn(true);
         //Assert
@@ -85,12 +88,12 @@ class PlayerServiceTest {
     void canUpdatePlayer() {
         //Arrange
         Player p1 = new Player(
-                1,
+                1L,
                 "Player1",
                 "player1@gmail.com",
-                "UK",
+                "test",
                 PlayerRole.USER,
-                10L
+                "UK"
         );
         //Act
         _ps.updatePlayer(p1);
@@ -102,21 +105,21 @@ class PlayerServiceTest {
     void canFindPlayerById() throws PlayerAlreadyExistsException, PlayerNotFoundException{
         //Arrange
         Player p1 = new Player(
-                1,
+                1L,
                 "Player1",
                 "player1@gmail.com",
-                "UK",
+                "test",
                 PlayerRole.USER,
-                10L
+                "UK"
         );
 
         _ps.addPlayer(p1);
         ArgumentCaptor<Player> playerArgumentCaptor = ArgumentCaptor.forClass(Player.class);
         verify(playerRepository).save(playerArgumentCaptor.capture());
         Player capturedPlayer = playerArgumentCaptor.getValue();
-        when(playerRepository.findPlayerById(1)).thenReturn(Optional.of(p1));
+        when(playerRepository.findPlayerById(1L)).thenReturn(Optional.of(p1));
         //Act
-        Player result = _ps.findPlayerById(1);
+        Player result = _ps.findPlayerById(1L);
         //Assert
         assertThat(capturedPlayer).isEqualTo(result);
     }
@@ -125,9 +128,9 @@ class PlayerServiceTest {
     @Disabled
     void canDeletePlayer() {
         //Act
-        _ps.deletePlayer(1);
+        _ps.deletePlayer(1L);
         //Assert
-        verify(playerRepository).deleteById(1);
+        verify(playerRepository).deleteById(1L);
     }
 
 

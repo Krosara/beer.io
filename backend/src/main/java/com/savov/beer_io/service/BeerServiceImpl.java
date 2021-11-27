@@ -35,11 +35,11 @@ public class BeerServiceImpl implements BeerService {
         return beerRepository.save(beer);
     }
 
-    public Beer findBeerById(int id) {
+    public Beer findBeerById(Long id) {
         return beerRepository.findBeerById(id).orElseThrow(() -> new BeerNotFoundException("Beer with ID:" + id + " not found"));
     }
 
-    public void deleteBeer(int id){
+    public void deleteBeer(Long id){
         Beer beer = beerRepository.findBeerById(id).orElseThrow(() -> new BeerNotFoundException("Beer with ID:" + id + " not found"));
 
         beerRepository.delete(beer);

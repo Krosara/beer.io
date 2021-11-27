@@ -7,11 +7,13 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PlayerRepository extends JpaRepository<Player, Integer> {
+public interface PlayerRepository extends JpaRepository<Player, Long> {
 
-    void deleteById(int id);
+    void deleteById(Long id);
 
-    Optional<Player> findPlayerById(int id);
+    Optional<Player> findPlayerById(Long id);
+
+    Player findPlayerByUsername(String username);
 
     Boolean existsPlayerByUsername(String username);
 }

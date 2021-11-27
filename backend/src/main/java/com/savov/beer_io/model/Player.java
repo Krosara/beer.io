@@ -18,12 +18,12 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private int id;
+    private Long id;
     private String username;
     private String email;
-    private String country;
+    private String password;
     @Enumerated(EnumType.STRING)
     private PlayerRole role = PlayerRole.USER;
-    private Long score = 0L;
+    private String country;
 
 }

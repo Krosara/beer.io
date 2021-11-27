@@ -12,8 +12,8 @@ public interface BeerService {
 
     Beer updateBeer(Beer beer);
 
-    Beer findBeerById(int id);
+    Beer findBeerById(Long id);
 
-    void deleteBeer(int id);
+    void deleteBeer(Long id);
 
 }

@@ -12,9 +12,11 @@ public interface PlayerService {
 
     Player updatePlayer(Player player);
 
-    Player findPlayerById(int id);
+    Player findPlayerById(Long id);
 
-    void deletePlayer(int id);
+    void deletePlayer(Long id);
+
+    Player findPlayerByUsername(String username);
 
 
 }

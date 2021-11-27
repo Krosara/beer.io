@@ -48,9 +48,9 @@ const LoginPage = () => {
       </button>
       <div className="text-xs mt-3 pb-10">
         <span>Dont't have an account? </span>
-        <a className="font-bold underline" href="/register" component={Link}>
+        <Link className="font-bold underline" to="/register">
           Register
-        </a>
+        </Link>
       </div>
     </form>
   );

@@ -34,7 +34,7 @@ class BeerServiceTest {
     void canAddBeer() throws BeerAlreadyExistsException {
         //Arrange
         Beer b1 = new Beer(
-                1,
+                1L,
                 "Staropramen",
                 "Pilsner",
                 "Czechia"
@@ -53,7 +53,7 @@ class BeerServiceTest {
     void addBeerWillThrowWhenBrandNameIsTaken() {
         //Arrange
         Beer b1 = new Beer(
-                1,
+                1L,
                 "Staropramen",
                 "Pilsner",
                 "Czechia"
@@ -76,7 +76,7 @@ class BeerServiceTest {
     @Test
     void canUpdateBeer() {
         Beer b = new Beer(
-                1,
+                1L,
                 "PilsnerUrquel",
                 "Pilsner",
                 "Czechia"
@@ -91,7 +91,7 @@ class BeerServiceTest {
     void canFindBeerById() throws BeerNotFoundException {
         //Arrange
         Beer b1 = new Beer(
-                1,
+                1L,
                 "PilsnerUrquel",
                 "Pilsner",
                 "Czechia"
@@ -100,9 +100,9 @@ class BeerServiceTest {
         ArgumentCaptor<Beer> beerArgumentCaptor = ArgumentCaptor.forClass(Beer.class);
         verify(beerRepository).save(beerArgumentCaptor.capture());
         Beer capturedBeer = beerArgumentCaptor.getValue();
-        when(beerRepository.findBeerById(1)).thenReturn(Optional.of(b1));
+        when(beerRepository.findBeerById(1L)).thenReturn(Optional.of(b1));
         //Act
-        Beer result = _bs.findBeerById(1);
+        Beer result = _bs.findBeerById(1L);
         //Assert
         assertThat(capturedBeer).isEqualTo(result);
     }
@@ -112,7 +112,7 @@ class BeerServiceTest {
     void canDeleteBeer() {
         //Arrange
         Beer b1 = new Beer(
-                1,
+                1L,
                 "PilsnerUrquel",
                 "Pilsner",
                 "Czechia"
@@ -121,11 +121,11 @@ class BeerServiceTest {
         ArgumentCaptor<Beer> beerArgumentCaptor = ArgumentCaptor.forClass(Beer.class);
         verify(beerRepository).save(beerArgumentCaptor.capture());
         Beer capturedBeer = beerArgumentCaptor.getValue();
-        when(beerRepository.findBeerById(1)).thenReturn(Optional.of(b1));
+        when(beerRepository.findBeerById(1L)).thenReturn(Optional.of(b1));
         //Act
-        _bs.deleteBeer(1);
+        _bs.deleteBeer(1L);
         //Assert
-        verify(beerRepository).deleteById(1);
+        verify(beerRepository).deleteById(1L);
     }
 
 }
