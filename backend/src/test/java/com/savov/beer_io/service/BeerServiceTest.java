@@ -31,7 +31,7 @@ class BeerServiceTest {
     }
 
     @Test
-    void canAddBeer() throws BeerAlreadyExistsException {
+    void canAddBeer() {
         //Arrange
         Beer b1 = new Beer(
                 1L,

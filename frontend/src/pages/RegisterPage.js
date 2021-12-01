@@ -1,13 +1,13 @@
-// import { playerAPI } from '../api';
+import { playerService } from '../services/playerService';
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import TextField from '../components/TextField';
-import CountriesDropDown from '../components/CountriesDropDown';
+import TextField from '../components/TextField/TextField';
+import CountriesDropDown from '../components/CountriesDropDown/CountriesDropDown';
 import countryList from 'react-select-country-list';
 import * as Yup from 'yup';
 import { ErrorMessage, Formik, Form } from 'formik';
 
-const Register = () => {
+export const RegisterPage = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
@@ -112,5 +112,3 @@ const Register = () => {
     </Formik>
   );
 };
-
-export default Register;
