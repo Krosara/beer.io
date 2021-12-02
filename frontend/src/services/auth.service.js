@@ -1,19 +1,20 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-axios.defaults.baseURL = 'http://localhost:8080/api';
+axios.defaults.baseURL = 'http://localhost:8080/api/';
 
-const login = (username, password) => {
+const login = (username, password, config) => {
   return axios
     .post(
-      '/login',
+      'login',
       {
-        username,
-        password,
+        username: username,
+        password: password,
       }
-      // { headers: { 'Access-Control-Allow-Origin': 'http://locahost:3000/' } }
+      // { headers: { 'Access-Control-Allow-Origin': '*' } }
     )
     .then((response) => {
+      console.log(response);
       if (response.data.token) {
         console.log(response.data);
         Cookies.set('access_token', JSON.stringify(response.data.access_token));
@@ -25,23 +26,6 @@ const login = (username, password) => {
       return response.data;
     });
 };
-
-// axios.interceptors.request.use(
-//   (config) => {
-//     let token = Cookies.get('access_token');
-
-//     if (token) {
-//       config.headers['Authorization'] = 'Bearer ' + token;
-//     }
-
-//     config.headers['Content-Type'] = 'application/json';
-//     // config.headers['Access-Control-Allow-Origin'] = '*';
-//     return config;
-//   },
-//   (error) => {
-//     Promise.reject(error);
-//   }
-// );
 
 // const logout = () =>
 //   Cookies.remove('access_token', { path: '', domain: 'http://localhost:8080' });
