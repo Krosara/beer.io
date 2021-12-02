@@ -3,7 +3,7 @@ import { ReactComponent as ScoreboardBtn } from '../../../src/assets/trophy.svg'
 import { ReactComponent as ProfileBtn } from '../../../src/assets/user.svg';
 import { ReactComponent as LogoutBtn } from '../../../src/assets/logout.svg';
 import { useState } from 'react';
-import ProfilePage from '../../pages/ProfilePage';
+import { ProfilePage } from '../../pages';
 
 const Navbar = () => {
   const [showModal, setShowModal] = useState(false);

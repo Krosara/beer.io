@@ -2,7 +2,7 @@ import { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useHistory } from 'react-router-dom';
 
-const ProfilePage = () => {
+export const ProfilePage = () => {
   const [open, setOpen] = useState(true);
 
   const cancelButtonRef = useRef(null);
@@ -90,5 +90,3 @@ const ProfilePage = () => {
     </Transition.Root>
   );
 };
-
-export default ProfilePage;

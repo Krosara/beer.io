@@ -1,7 +1,9 @@
-import Application from './Application';
+import { AuthenticatedApp } from './AuthenticatedApp';
+import { UnauthenticatedApp } from './UnauthenticatedApp';
 
 function App() {
-  return <Application />;
+  // const { user } = useAuthState();
+  return <UnauthenticatedApp />;
 }
 
 export default App;
