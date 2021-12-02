@@ -3,29 +3,24 @@ package com.savov.beer_io.controller;
 import com.savov.beer_io.dto.PlayerDTO;
 import com.savov.beer_io.model.Player;
 import com.savov.beer_io.service.PlayerService;
-import com.savov.beer_io.service.PlayerServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
-
+@RequiredArgsConstructor
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/player")
-@CrossOrigin("http://localhost:3000/")
 public class PlayerController {
 
     @Autowired
     private ModelMapper modelMapper;
 
     private final PlayerService playerService;
-
-    public PlayerController(PlayerServiceImpl playerService){
-        this.playerService = playerService;
-    }
 
     @GetMapping
     public ResponseEntity<List<PlayerDTO>> getAllPlayers() {

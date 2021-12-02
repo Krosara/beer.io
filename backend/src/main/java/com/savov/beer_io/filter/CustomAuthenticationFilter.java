@@ -3,6 +3,7 @@ package com.savov.beer_io.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.savov.beer_io.model.Player;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,14 +31,26 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager){
         this.authenticationManager = authenticationManager;
+
+        setFilterProcessesUrl("/api/login");
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-        return authenticationManager.authenticate(authenticationToken);
+        try {
+//            String username = request.getParameter("username");
+//            String password = request.getParameter("password");
+            Player creds = new ObjectMapper().readValue(request.getInputStream(), Player.class);
+            System.out.println(creds.getUsername());
+            return authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword())
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+//        return authenticationManager.authenticate(authenticationToken);
+
     }
 
     @Override
