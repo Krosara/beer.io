@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export const LandingPage = () => {
-  const [open, setOpen] = useState(false);
-
   return <div></div>;
 };

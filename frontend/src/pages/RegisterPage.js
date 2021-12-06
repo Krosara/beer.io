@@ -1,6 +1,6 @@
-import { playerService } from '../services/playerService';
+import { createPlayer } from '../services/playerService';
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import TextField from '../components/TextField/TextField';
 import CountriesDropDown from '../components/CountriesDropDown/CountriesDropDown';
 import countryList from 'react-select-country-list';
@@ -8,12 +8,18 @@ import * as Yup from 'yup';
 import { ErrorMessage, Formik, Form } from 'formik';
 
 export const RegisterPage = () => {
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
+  const countries = useMemo(() => countryList().getData(), []);
 
-    // playerAPI.createPlayer(username, email, country);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [country, setCountry] = useState(countries[156]);
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const history = useHistory();
 
-    // history.push('/');
+  const handleOnSubmit = () => {
+    createPlayer(username, email, country.label, password);
+    history.push('/');
   };
 
   const validation = Yup.object({
@@ -28,15 +34,6 @@ export const RegisterPage = () => {
       .required('Confirm password is required'),
   });
 
-  const countries = useMemo(() => countryList().getData(), []);
-
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [country, setCountry] = useState(countries[156]);
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  // const history = useHistory();
-
   return (
     <Formik
       initialValues={{
@@ -48,6 +45,7 @@ export const RegisterPage = () => {
       }}
       enableReinitialize
       validationSchema={validation}
+      onSubmit={handleOnSubmit}
     >
       {(formik) => (
         <Form
@@ -89,12 +87,28 @@ export const RegisterPage = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm password"
-              // {...console.log(
-              // `Username:${username}\nEmail:${email}\nCountry:${country.label}\nPassword:${password}\nConfirm:${confirmPassword}`
-              // )}
-              // {...console.log(formik.values)}
             />
           </div>
+          <ErrorMessage
+            component="div"
+            name="username"
+            className="text-red-600 pt-1 text-xs"
+          />
+          <ErrorMessage
+            component="div"
+            name="email"
+            className="text-red-600 pt-1 text-xs"
+          />
+          <ErrorMessage
+            component="div"
+            name="password"
+            className="text-red-600 pt-1 text-xs"
+          />
+          <ErrorMessage
+            component="div"
+            name="confirmPassword"
+            className="text-red-600 pt-1 text-xs -mb-10"
+          />
           <button
             type="submit"
             className="bg-tbgreen-default mt-11 w-36 h-7 rounded-xl hover:bg-tbgreen-hover  focus:bg-tbgreen-hover focus:outline-none border border-tbgreen-border xs:mt-6 focus:placeholder-transparent"

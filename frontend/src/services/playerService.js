@@ -2,11 +2,12 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:8080/api';
 
-const createPlayer = async (username, email, country) => {
+const createPlayer = async (username, email, country, password) => {
   await axios.post('/player/add', {
-    username,
-    email,
-    country,
+    username: username,
+    email: email,
+    country: country,
+    password: password,
   });
 };
 
