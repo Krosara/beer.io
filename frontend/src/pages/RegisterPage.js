@@ -18,8 +18,15 @@ export const RegisterPage = () => {
   const history = useHistory();
 
   const handleOnSubmit = () => {
-    createPlayer(username, email, country.label, password);
-    history.push('/');
+    createPlayer(username, email, country.label, password)
+      // .then(history.push('/'))
+      .catch((error) => {
+        if (error.response.status === 400) {
+          console.log(error.response.status + ' kurec');
+          alert(`Player with this username/email already exists`);
+        }
+      })
+      .finally(history.push('/'));
   };
 
   const validation = Yup.object({

@@ -39,6 +39,9 @@ public class PlayerController {
     {
             Player request = modelMapper.map(playerDto, Player.class);
             Player player = playerService.addPlayer(request);
+            if (player == null){
+                return ResponseEntity.badRequest().body(null);
+            }
             PlayerDTO response = modelMapper.map(player, PlayerDTO.class);
             return new ResponseEntity<PlayerDTO>(response, HttpStatus.CREATED);
     }
