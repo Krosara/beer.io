@@ -41,7 +41,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: cd backend; ./gradlew build sonarqube --info
 
-
 #     steps:
 #     - uses: actions/checkout@v2
 #     - name: Set up JDK 16
