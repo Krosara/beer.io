@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'com.savov'
-version = '0.0.1-SNAPSHOT'
+version = '1.0'
 sourceCompatibility = '16'
 
 configurations {
@@ -50,9 +50,9 @@ dependencies {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "beer.io"
-        property 'sonar.host.url', 'http://localhost:9000'
-//        property "sonar.jacoco.reportPaths", "${project.basedir}/../target/jacoco.exec"
+        property "sonar.projectKey", "Krosara_beer.io"
+        property "sonar.organization", "krosara"
+        property "sonar.host.url", "https://sonarcloud.io"
     }
 }
 

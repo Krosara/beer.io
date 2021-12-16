@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -37,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.cors();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-//        http.authorizeRequests().antMatchers(GET, "/api/player/*").hasAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/api/player/*").permitAll();
+        http.authorizeRequests().antMatchers(POST, "/api/player/add").permitAll();
         http.authorizeRequests().antMatchers("/api/auth/**", "/api/auth/token/refresh", "/api/login").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
 //        http.authorizeRequests().anyRequest().permitAll();

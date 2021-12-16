@@ -14,9 +14,7 @@ const login = (username, password, config) => {
       // { headers: { 'Access-Control-Allow-Origin': '*' } }
     )
     .then((response) => {
-      console.log(response);
       if (response.data.token) {
-        console.log(response.data);
         Cookies.set('access_token', JSON.stringify(response.data.access_token));
         Cookies.set(
           'refresh_token',

@@ -1,6 +1,7 @@
 package com.savov.beer_io.service;
 
 import com.savov.beer_io.enums.PlayerRole;
+import com.savov.beer_io.exceptions.PlayerAlreadyExistsException;
 import com.savov.beer_io.exceptions.PlayerNotFoundException;
 import com.savov.beer_io.model.Player;
 import com.savov.beer_io.repo.PlayerRepository;
@@ -33,6 +34,7 @@ public class PlayerServiceImpl implements PlayerService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("kur");
         Player player = playerRepository.findPlayerByUsername(username);
         if (player == null){
             throw new UsernameNotFoundException("User not found");
@@ -43,6 +45,9 @@ public class PlayerServiceImpl implements PlayerService, UserDetailsService {
     }
 
     public Player addPlayer(Player player) {
+        if (playerRepository.existsPlayerByUsername(player.getUsername()) || playerRepository.existsPlayerByEmail(player.getEmail())){
+            return null;
+        }
         player.setPassword(passwordEncoder.encode(player.getPassword()));
         return playerRepository.save(player);
     }
