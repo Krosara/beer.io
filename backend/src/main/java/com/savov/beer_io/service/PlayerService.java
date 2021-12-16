@@ -1,6 +1,5 @@
 package com.savov.beer_io.service;
 
-import com.savov.beer_io.exceptions.PlayerAlreadyExistsException;
 import com.savov.beer_io.model.Player;
 
 import java.util.List;
