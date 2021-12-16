@@ -1,6 +1,5 @@
 package com.savov.beer_io.service;
 
-import com.savov.beer_io.exceptions.BeerAlreadyExistsException;
 import com.savov.beer_io.exceptions.BeerNotFoundException;
 import com.savov.beer_io.model.Beer;
 import com.savov.beer_io.repo.BeerRepository;
