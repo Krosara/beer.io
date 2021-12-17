@@ -22,7 +22,7 @@ export const RegisterPage = () => {
       // .then(history.push('/'))
       .catch((error) => {
         if (error.response.status === 400) {
-          console.log(error.response.status + ' kurec');
+          console.log(error.response.status);
           alert(`Player with this username/email already exists`);
         }
       })
