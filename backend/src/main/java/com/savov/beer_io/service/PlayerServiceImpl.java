@@ -32,7 +32,7 @@ public class PlayerServiceImpl implements PlayerService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("kur");
+
         Player player = playerRepository.findPlayerByUsername(username);
         if (player == null){
             throw new UsernameNotFoundException("User not found");
