@@ -6,6 +6,7 @@
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.5",
     "@progress/kendo-react-dropdowns": "^4.10.0",
+    "@reach/portal": "^0.16.2",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",

@@ -1,12 +1,12 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-axios.defaults.baseURL = 'http://localhost:8080/api/';
+axios.defaults.baseURL = 'http://localhost:8080/';
 
 const login = (username, password, config) => {
   return axios
     .post(
-      'login',
+      'auth/login',
       {
         username: username,
         password: password,

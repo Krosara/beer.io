@@ -1,9 +1,13 @@
-import { AuthenticatedApp } from './AuthenticatedApp';
-import { UnauthenticatedApp } from './UnauthenticatedApp';
+import React from 'react';
+import useAuthState from './hooks/useAuthState';
+import Router from './Router';
 
 function App() {
-  // const { user } = useAuthState();
-  return <UnauthenticatedApp />;
+  const { isAuthenticated, authStateChecking } = useAuthState();
+  if (authStateChecking) {
+    return <p>Loading....</p>;
+  }
+  return <Router isAuth={isAuthenticated} />;
 }
 
 export default App;
