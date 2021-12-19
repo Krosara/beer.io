@@ -15,7 +15,7 @@ export const ProfilePage = () => {
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto "
         initialFocus={cancelButtonRef}
-        // onClose={history.goBack}
+        onClose={history.goBack}
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
@@ -29,8 +29,6 @@ export const ProfilePage = () => {
           >
             <Dialog.Overlay className="fixed inset-0 bg-gray-700 bg-opacity-75 transition-opacity" />
           </Transition.Child>
-
-          {/* This element is to trick the browser into centering the modal contents. */}
           <span
             className="hidden sm:inline-block sm:align-middle sm:h-screen"
             aria-hidden="true"
