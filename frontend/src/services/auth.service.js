@@ -1,16 +1,17 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-axios.defaults.baseURL = 'http://localhost:8080/';
+const API_URL = 'http://localhost:8080';
 
 const login = (username, password, config) => {
   return axios
     .post(
-      'auth/login',
+      API_URL + '/auth/login',
       {
         username: username,
         password: password,
       }
+      // { ...console.log(config.headers) }
       // { headers: { 'Access-Control-Allow-Origin': '*' } }
     )
     .then((response) => {
@@ -25,7 +26,9 @@ const login = (username, password, config) => {
     });
 };
 
-// const logout = () =>
-//   Cookies.remove('access_token', { path: '', domain: 'http://localhost:8080' });
+const logout = () => {
+  Cookies.remove('access_token');
+  Cookies.remove('refresh_token');
+};
 
-export { login };
+export { login, logout };
