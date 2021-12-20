@@ -1,18 +1,9 @@
-import { useState, useEffect } from 'react';
-import { AuthenticatedApp } from './AuthenticatedApp';
-import { UnauthenticatedApp } from './UnauthenticatedApp';
-import Cookies from 'js-cookie';
+import React from 'react';
+
+import Router from './Router';
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false);
-
-  useEffect(() => {
-    if (Cookies.get('access_token')) {
-      setIsLogged(true);
-    }
-  }, []);
-
-  return isLogged ? <AuthenticatedApp /> : <UnauthenticatedApp />;
+  return <Router />;
 }
 
 export default App;
