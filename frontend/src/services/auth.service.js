@@ -5,17 +5,12 @@ const API_URL = 'http://localhost:8080';
 
 const login = (username, password, config) => {
   return axios
-    .post(
-      API_URL + '/auth/login',
-      {
-        username: username,
-        password: password,
-      }
-      // { ...console.log(config.headers) }
-      // { headers: { 'Access-Control-Allow-Origin': '*' } }
-    )
+    .post(API_URL + '/auth/login', {
+      username: username,
+      password: password,
+    })
     .then((response) => {
-      if (response.data.token) {
+      if (response.data) {
         Cookies.set('access_token', JSON.stringify(response.data.access_token));
         Cookies.set(
           'refresh_token',
