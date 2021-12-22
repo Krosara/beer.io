@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import TextField from '../components/TextField/TextField';
-import { login } from '../services/auth.service';
+import { Login } from '../services/auth.service';
 import { ReactComponent as Logo } from '../assets/logo+text.svg';
 
 export const LoginPage = () => {
@@ -11,7 +11,7 @@ export const LoginPage = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    login(username, password)
+    Login(username, password)
       .then(history.push('/'))
       .catch((error) => console.error(error));
   };
@@ -41,7 +41,7 @@ export const LoginPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            {...console.log(`Username:${username}\nPassword:${password}`)}
+            // {...console.log(`Username:${username}\nPassword:${password}`)}
           />
         </div>
         <button
