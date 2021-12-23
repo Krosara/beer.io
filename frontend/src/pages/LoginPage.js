@@ -13,11 +13,13 @@ export const LoginPage = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    login(username, password).then(() =>
-      // response ? history.push('/') : alert('Something went wrong')
-      // console.log(response)
-      history.push('/')
-    );
+    login(username, password)
+      .then(() =>
+        // response ? history.push('/') : alert('Something went wrong')
+        // console.log(response)
+        history.push('/')
+      )
+      .catch((error) => alert('Invalid credentials'));
   };
 
   return (
