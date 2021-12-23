@@ -1,8 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
-import { useContext } from 'react';
-import { UserContext } from '../context/AuthContext';
 
 const API_URL = 'http://localhost:8080';
 

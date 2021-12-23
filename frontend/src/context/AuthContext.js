@@ -1,26 +1,60 @@
 import React, { useEffect, createContext, useState, useContext } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
+import { useHistory, Redirect } from 'react-router-dom';
+
+const API_URL = 'http://localhost:8080';
 
 const AuthContext = createContext();
 
+export default AuthContext;
+
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [tokens, setTokens] = useState(() =>
+    Cookies.get('tokens') ? JSON.parse(Cookies.get('tokens')) : null
+  );
 
-  useEffect(() => {
-    let token = Cookies.get('access_token');
+  const [user, setUser] = useState(() =>
+    Cookies.get('tokens') ? jwtDecode(Cookies.get('tokens')) : null
+  );
+  let history = useHistory();
 
-    setUser(token);
-  }, []);
+  const login = async (username, password) => {
+    await axios
+      .post(API_URL + '/auth/login', {
+        username: username,
+        password: password,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          // const user = jwtDecode(response.data.access_token);
+          // const tokens = response.data;
+          setUser(jwtDecode(response.data.access_token));
+          setTokens(response.data);
 
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+          Cookies.set('tokens', JSON.stringify(response.data));
+          // history.push('/');
+          // if (user && tokens) {
+          //   setUser(user);
+          //   setTokens(tokens);
+          //   Cookies.set('tokens', JSON.stringify(tokens));
+          // }
+          // history.push('/');
+        }
+        return response;
+      });
+  };
+  // console.log(tokens);
+  // console.log(tokens);
+
+  const contextData = {
+    user: user,
+    login: login,
+  };
+  return (
+    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+  );
 };
 
-const useAuth = () => {
-  const user = useContext(AuthContext);
-
-  return [user];
-};
-
-export { AuthProvider, useAuth };
+export { AuthProvider };

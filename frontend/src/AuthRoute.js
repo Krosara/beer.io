@@ -1,24 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import AuthContext from './context/AuthContext';
 
-const AuthRoute = ({ isAuth: token, component: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={(props) => {
-        console.log(token);
-        if (token) {
-          return <Component />;
-        } else {
-          return (
-            <Redirect
-              to={{ pathname: '/login', state: { from: props.location } }}
-            />
-          );
-        }
-      }}
-    />
-  );
+const AuthRoute = ({ children, ...rest }) => {
+  let { user } = useContext(AuthContext);
+  console.log(user);
+  return <Route {...rest}>{user ? children : <Redirect to="/login" />}</Route>;
 };
 
 export default AuthRoute;

@@ -8,16 +8,9 @@ import AuthRoute from './AuthRoute';
 const Router = () => {
   // const [logged, setLogged] = useState(authContext);
 
-  const [user] = useAuth();
-  const [logged, setLogged] = useState(false);
-
-  useEffect(() => {
-    if (user) {
-      setLogged(true);
-    }
-  }, []);
-
-  console.log(user);
+  // useEffect(() => {
+  //   console.log(user.user ? true : false);
+  // }, [user]);
 
   return (
     <ReactRouter>
@@ -25,12 +18,8 @@ const Router = () => {
       <Switch>
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
-        <AuthRoute exact path="/" component={LandingPage} isAuth={logged} />
-        <AuthRoute
-          path="/profile"
-          component={ProfilePage}
-          isAuth={user ? true : false}
-        />
+        <AuthRoute exact path="/" component={LandingPage} />
+        <AuthRoute path="/profile" component={ProfilePage} />
       </Switch>
     </ReactRouter>
   );

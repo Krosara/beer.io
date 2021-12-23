@@ -1,24 +1,28 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import TextField from '../components/TextField/TextField';
-import { Login } from '../services/auth.service';
+// import { Login } from '../services/auth.service';
 import { ReactComponent as Logo } from '../assets/logo+text.svg';
+import AuthContext from '../context/AuthContext';
 
 export const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('kristian');
+  const [password, setPassword] = useState('kristian');
   const history = useHistory();
+  let { login } = useContext(AuthContext);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    Login(username, password)
-      .then(history.push('/'))
-      .catch((error) => console.error(error));
+    login(username, password).then(() =>
+      // response ? history.push('/') : alert('Something went wrong')
+      // console.log(response)
+      history.push('/')
+    );
   };
 
   return (
     <div>
-      <Logo className=" mb-14 small:mb-6 small:-mt-2 pl-2 mx-auto small:w-9/12 small:h-3/4" />
+      <Logo className=" static mb-14 small:mb-6 small:-mt-2 pl-2 mx-auto small:w-9/12 small:h-3/4" />
       <form
         action="post"
         onSubmit={handleOnSubmit}
