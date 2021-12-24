@@ -1,32 +1,46 @@
-import { Link } from 'react-router-dom';
-import { ReactComponent as ScoreboardBtn } from '../../../src/assets/trophy.svg';
+import { Link, useHistory } from 'react-router-dom';
+import { ReactComponent as HomeBtn } from '../../../src/assets/home.svg';
 import { ReactComponent as ProfileBtn } from '../../../src/assets/user.svg';
 import { ReactComponent as LogoutBtn } from '../../../src/assets/logout.svg';
+import { ReactComponent as LoginBtn } from '../../../src/assets/login.svg';
+import { useContext } from 'react';
+import AuthContext from '../../context/AuthContext';
 
 const Navbar = () => {
+  let { user, logout } = useContext(AuthContext);
+
+  const history = useHistory();
+  const handleLogout = () => {
+    logout();
+    history.push('/login');
+  };
+
   return (
     <div>
       <header className="text-offwhite small:hidden">
-        <button
-          component={Link}
-          to="/scoreboard"
-          className="font-light bg-btngreen-default hover:bg-btngreen-light mt-10 w-36 filter drop-shadow-normal ml-16"
-        >
-          <div className="text-xl my-4">Scoreboard</div>
-        </button>
-        <button
-          component={Link}
-          to="/logout"
-          className="font-light bg-btngreen-default hover:bg-btngreen-light mt-10 w-36  filter drop-shadow-normal mr-16 float-right"
-        >
-          <div className="text-xl my-4">Logout</div>
-        </button>
+        <Link to="/">
+          <button className="font-light bg-btngreen-default hover:bg-btngreen-light mt-10 w-36 filter drop-shadow-normal ml-16">
+            <div className="text-xl my-4">Home</div>
+          </button>
+        </Link>
+
+        {user ? (
+          <button
+            className="font-light bg-btngreen-default hover:bg-btngreen-light mt-10 w-36  filter drop-shadow-normal mr-16 float-right"
+            onClick={handleLogout}
+          >
+            <div className="text-xl my-4">Logout</div>
+          </button>
+        ) : (
+          <Link to="/login">
+            <button className="font-light bg-btngreen-default hover:bg-btngreen-light mt-10 w-36  filter drop-shadow-normal mr-16 float-right">
+              <div className="text-xl my-4">Login</div>
+            </button>
+          </Link>
+        )}
         <Link to="/profile">
           <button className="font-light bg-btngreen-darker hover:bg-btngreen-dark mt-10 w-36 filter drop-shadow-normal mr-16 float-right">
-            <div className="text-xl my-4">
-              Profile
-              {/* <ProfilePage showModal={showModal} setShowModal={setShowModal} /> */}
-            </div>
+            <div className="text-xl my-4">{user ? user.sub : 'Profile'}</div>
           </button>
         </Link>
       </header>
@@ -34,9 +48,9 @@ const Navbar = () => {
         <button
           className="bg-btngreen-default hover:bg-btngreen-light filter drop-shadow-normal rounded-full h-14 w-14"
           component={Link}
-          to="/scoreboard"
+          to="/"
         >
-          <ScoreboardBtn className=" m-auto w-2/3 h-2/3" />
+          <HomeBtn className=" m-auto w-2/3 h-2/3" />
         </button>
         <button
           className="bg-btngreen-darker hover:bg-btngreen-dark filter drop-shadow-normal rounded-full h-14 w-14"
@@ -45,13 +59,23 @@ const Navbar = () => {
         >
           <ProfileBtn className="m-auto w-3/4 h-3/4" />
         </button>
-        <button
-          className="bg-btngreen-default hover:bg-btngreen-light filter drop-shadow-normal rounded-full h-14 w-14"
-          component={Link}
-          to="/logout"
-        >
-          <LogoutBtn className="m-auto w-2/3 h-2/3" />
-        </button>
+        {user ? (
+          <Link to="/logout">
+            <button
+              className="bg-btngreen-default hover:bg-btngreen-light filter drop-shadow-normal rounded-full h-14 w-14"
+              component={Link}
+              to="/logout"
+            >
+              <LogoutBtn className="m-auto w-2/3 h-2/3" />
+            </button>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <button className="bg-btngreen-default hover:bg-btngreen-light filter drop-shadow-normal rounded-full h-14 w-14">
+              <LoginBtn className="m-auto w-2/3 h-2/3" />
+            </button>
+          </Link>
+        )}
       </header>
     </div>
   );
