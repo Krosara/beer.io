@@ -48,9 +48,16 @@ const AuthProvider = ({ children }) => {
   // console.log(tokens);
   // console.log(tokens);
 
+  let logout = () => {
+    setTokens(null);
+    setUser(null);
+    Cookies.remove('tokens');
+  };
+
   const contextData = {
     user: user,
     login: login,
+    logout: logout,
   };
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
