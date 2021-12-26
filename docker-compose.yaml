@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+    postgresql:
+      image: 'postgres:latest'
+      container_name: postgresql
+      restart: always
+      ports:
+          - 5432:5432
+      volumes:
+          - data:/data
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: savov
+        POSTGRES_DB: beer.io
+volumes:
+    data: {}
+
