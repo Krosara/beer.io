@@ -33,6 +33,7 @@ public class Application {
         return new BCryptPasswordEncoder();
     }
 
+
 //     @Bean
 //     CommandLineRunner run(PlayerService playerService) {
 //     return args -> {
