@@ -1,7 +1,9 @@
-FROM node:10-alpine
-WORKDIR /usr/src/app
-COPY package*.json ./
+FROM node:13.12.0-alpine
+
+COPY . ./
+
 RUN npm install
-COPY . .
+
 EXPOSE 3000
+
 CMD ["npm", "start"]
