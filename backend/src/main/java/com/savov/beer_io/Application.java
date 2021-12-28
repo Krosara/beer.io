@@ -33,13 +33,13 @@ public class Application {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    CommandLineRunner run(PlayerService playerService) {
-//    return args -> {
-//        playerService.addPlayer(new Player(null, "kristian", "kristian@gmail.com", "kristian", PlayerRole.ADMIN, "BG"));
-//        playerService.addPlayer(new Player(null, "user", "user@gmail.com", "user123", PlayerRole.USER, "BG"));
-//        };
-//}
+    @Bean
+    CommandLineRunner run(PlayerService playerService) {
+    return args -> {
+        playerService.addPlayer(new Player(null, "kristian", "kristian@gmail.com", "kristian", PlayerRole.ADMIN, "BG"));
+        playerService.addPlayer(new Player(null, "user", "user@gmail.com", "user123", PlayerRole.USER, "BG"));
+        };
+}
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
