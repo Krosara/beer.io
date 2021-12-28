@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+  beerAPI:
+    container_name: beer.io_backend
+    image: beer.io_backend
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      beerDB:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://beerDB:5432/beer.io
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=savov
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  beerDB:
+    image: postgres
+    ports:
+        - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=savov
+      - POSTGRES_DB=beer.io
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
