@@ -2,7 +2,7 @@ version: '3.1'
 services:
   beerAPI:
     container_name: beer.io_backend
-    image: beer.io_backend
+    image: krosara/beer.io-backend
     build: ./
     ports:
       - "8080:8080"
