@@ -18,7 +18,8 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() =>
     Cookies.get('tokens') ? jwtDecode(Cookies.get('tokens')) : null
   );
-  let history = useHistory();
+
+  const [loading, setLoading] = useState(true);
 
   const login = async (username, password) => {
     await axios
@@ -54,6 +55,32 @@ const AuthProvider = ({ children }) => {
     Cookies.remove('tokens');
   };
 
+  let updateToken = async () => {
+    console.log('updating token');
+    await axios
+      .get(API_URL + '/auth/token/refresh', {
+        headers: { Authorization: `Bearer ${tokens.refresh_token}` },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setUser(jwtDecode(response.data.access_token));
+          setTokens(response.data);
+
+          Cookies.set('tokens', JSON.stringify(response.data));
+        }
+      });
+  };
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      if (tokens) {
+        updateToken();
+      }
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [tokens, loading]);
+
+  // console.log(tokens.refresh_token);
   const contextData = {
     user: user,
     login: login,
