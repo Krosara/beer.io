@@ -1,8 +1,7 @@
-import React, { useEffect, createContext, useState, useContext } from 'react';
+import React, { useEffect, createContext, useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import { useHistory, Redirect } from 'react-router-dom';
 
 const API_URL = 'http://localhost:8080';
 
@@ -19,7 +18,7 @@ const AuthProvider = ({ children }) => {
     Cookies.get('tokens') ? jwtDecode(Cookies.get('tokens')) : null
   );
 
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const login = async (username, password) => {
     await axios
@@ -55,8 +54,11 @@ const AuthProvider = ({ children }) => {
     Cookies.remove('tokens');
   };
 
+  let getAccess = () => {
+    return tokens.access_token;
+  };
+
   let updateToken = async () => {
-    console.log('updating token');
     await axios
       .get(API_URL + '/auth/token/refresh', {
         headers: { Authorization: `Bearer ${tokens.refresh_token}` },
@@ -65,7 +67,6 @@ const AuthProvider = ({ children }) => {
         if (response.status === 200) {
           setUser(jwtDecode(response.data.access_token));
           setTokens(response.data);
-
           Cookies.set('tokens', JSON.stringify(response.data));
         }
       });
@@ -74,17 +75,22 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     let interval = setInterval(() => {
       if (tokens) {
-        updateToken();
+        updateToken().catch((error) => logout());
       }
-    }, 2000);
+    }, 10000);
     return () => clearInterval(interval);
-  }, [tokens, loading]);
+  }, [tokens]);
 
+  // axios.interceptors.request.use((req) => {
+  //   req.headers.authorization = `Bearer: ${tokens.access_token}`;
+  //   return req;
+  // });
   // console.log(tokens.refresh_token);
   const contextData = {
     user: user,
     login: login,
     logout: logout,
+    getAccess: getAccess,
   };
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>

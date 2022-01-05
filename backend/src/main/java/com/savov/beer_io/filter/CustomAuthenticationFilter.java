@@ -36,7 +36,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             Player creds = new ObjectMapper().readValue(request.getInputStream(), Player.class);
-            System.out.println(creds.getUsername());
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword())
             );
@@ -51,12 +50,12 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         User user = (User)authentication.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC256("beerSecret".getBytes());
         String access_token = JWT.create().withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 60*1000))
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("role", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
                 .sign(algorithm);
         String refresh_token = JWT.create().withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 90*1000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
 //        response.setHeader("access_token", access_token);
