@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(POST, "/auth/login", "/auth/token/refresh", "/api/player/add").permitAll();
         http.authorizeRequests().antMatchers(GET, "/auth/token/refresh").permitAll();
         http.authorizeRequests().antMatchers(GET, "/api/player/").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers("/beer-chat/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

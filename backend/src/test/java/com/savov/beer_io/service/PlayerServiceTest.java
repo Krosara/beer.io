@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -57,8 +58,8 @@ class PlayerServiceTest {
     }
 
     @Test
-    @Disabled
-    void addPlayerWillThrowWhenUsernameIsTaken(){
+//    @Disabled
+    void addPlayerWillReturnNullIfUsernameIsTaken(){
         //Arrange
         Player p1 = new Player(
                 1L,
@@ -70,7 +71,7 @@ class PlayerServiceTest {
         );
         given(playerRepository.existsPlayerByUsername(p1.getUsername())).willReturn(true);
         //Assert
-        assertThatThrownBy(() -> _ps.addPlayer(p1)).isInstanceOf(PlayerAlreadyExistsException.class).hasMessageContaining("Player with username: " + p1.getUsername() + " already exists!");
+        assertThat(_ps.addPlayer(p1)).isNull();
 
         verify(playerRepository, never()).save(any());
     }
@@ -126,11 +127,20 @@ class PlayerServiceTest {
 
     @Test
     @Disabled
-    void canDeletePlayer() {
-        //Act
-        _ps.deletePlayer(1L);
-        //Assert
-        verify(playerRepository).deleteById(1L);
+    void shouldDeletePlayerWhenGivenAnId() {
+        //Arrange
+        Player p1 = new Player(
+                1L,
+                "Player1",
+                "player1@gmail.com",
+                "test",
+                PlayerRole.USER,
+                "UK"
+        );
+//        _ps.addPlayer(p1);
+//        List<Player> all = _ps.findAllPlayers();
+        _ps.deletePlayer(p1.getId());
+        verify(playerRepository, times(1)).deleteById(p1.getId());
     }
 
 

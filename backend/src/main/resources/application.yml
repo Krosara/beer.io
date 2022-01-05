@@ -13,7 +13,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/beer.io
     username: postgres
   jpa:
-    show-sql: true
+#    show-sql: true
     hibernate:
 #      ddl-auto: create-drop
       ddl-auto: update

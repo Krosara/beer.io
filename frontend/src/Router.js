@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter as ReactRouter, Route, Switch } from 'react-router-dom';
 import { LoginPage, RegisterPage, ProfilePage, LandingPage } from './pages';
 import Navbar from './components/Navbar/Navbar';
-import { useAuth } from './context/AuthContext';
 import AuthRoute from './AuthRoute';
 
 const Router = () => {
