@@ -19,7 +19,6 @@ public class MessageController {
     @MessageMapping("/message")
     @SendTo("/topic/messages")
     public ResponseMessageDTO getMessage(@Payload MessageDTO messageDTO) {
-        System.out.println(messageDTO + " kur");
         return new ResponseMessageDTO(HtmlUtils.htmlEscape(messageDTO.getMessageContent()));
     }
 }
