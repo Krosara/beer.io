@@ -126,20 +126,20 @@ class PlayerServiceTest {
     }
 
     @Test
-    @Disabled
+//    @Disabled
     void shouldDeletePlayerWhenGivenAnId() {
         //Arrange
         Player p1 = new Player(
-                1L,
-                "Player1",
-                "player1@gmail.com",
+                100L,
+                "Player123",
+                "player123@gmail.com",
                 "test",
                 PlayerRole.USER,
                 "UK"
         );
-//        _ps.addPlayer(p1);
+        _ps.addPlayer(p1);
 //        List<Player> all = _ps.findAllPlayers();
-        _ps.deletePlayer(p1.getId());
+        _ps.deletePlayer(1L);
         verify(playerRepository, times(1)).deleteById(p1.getId());
     }
 
