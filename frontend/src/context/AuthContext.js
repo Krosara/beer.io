@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
   let updateToken = async () => {
     await axios
       .get(API_URL + '/auth/token/refresh', {
-        headers: { Authorization: `Bearer ${tokens.refresh_token}` },
+        headers: { Authorization: `Bearer ${tokens?.refresh_token}` },
       })
       .then((response) => {
         if (response.status === 200) {

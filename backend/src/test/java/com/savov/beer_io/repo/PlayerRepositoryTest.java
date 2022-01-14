@@ -145,10 +145,10 @@ class PlayerRepositoryTest {
     }
 
     @Test
-    @Disabled
+//    @Disabled
     void itShouldCheckIfPlayerEmailExists() {
         //Arrange
-        String username = "player1";
+        String username = "Player1";
         Player p = new Player(
                 id,
                 "Player1",
