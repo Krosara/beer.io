@@ -87,7 +87,7 @@ export const ProfilePage = () => {
                     />
                     <button
                       type="submit"
-                      className=" text-lg bg-tbgreen-default mt-11 w-36 h-7 rounded-xl hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none "
+                      className=" text-lg bg-tbgreen-default mt-32 w-48 h-7 rounded-xl hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
                     >
                       Change username
                     </button>
