@@ -19,6 +19,6 @@ public class MessageController {
     @MessageMapping("/message")
     @SendTo("/topic/messages")
     public ResponseMessageDTO getMessage(@Payload MessageDTO messageDTO) {
-        return new ResponseMessageDTO(HtmlUtils.htmlEscape(messageDTO.getMessageContent()));
+        return new ResponseMessageDTO(HtmlUtils.htmlEscape(messageDTO.getMessageContent()), HtmlUtils.htmlEscape(messageDTO.getUser()));
     }
 }

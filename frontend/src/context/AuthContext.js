@@ -33,7 +33,14 @@ const AuthProvider = ({ children }) => {
           setUser(jwtDecode(response.data.access_token));
           setTokens(response.data);
 
-          Cookies.set('tokens', JSON.stringify(response.data));
+          Cookies.set(
+            'access_token',
+            JSON.stringify(response.data.access_token)
+          );
+          Cookies.set(
+            'refresh_token',
+            JSON.stringify(response.data.refresh_token)
+          );
           // history.push('/');
           // if (user && tokens) {
           //   setUser(user);
@@ -51,7 +58,8 @@ const AuthProvider = ({ children }) => {
   let logout = () => {
     setTokens(null);
     setUser(null);
-    Cookies.remove('tokens');
+    Cookies.remove('access_token');
+    Cookies.remove('refresh_token');
   };
 
   let getAccess = () => {
@@ -79,13 +87,9 @@ const AuthProvider = ({ children }) => {
       }
     }, 10000);
     return () => clearInterval(interval);
+    // eslint-disable-next-line
   }, [tokens]);
 
-  // axios.interceptors.request.use((req) => {
-  //   req.headers.authorization = `Bearer: ${tokens.access_token}`;
-  //   return req;
-  // });
-  // console.log(tokens.refresh_token);
   const contextData = {
     user: user,
     login: login,
