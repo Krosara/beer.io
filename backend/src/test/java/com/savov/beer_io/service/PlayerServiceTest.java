@@ -126,7 +126,7 @@ class PlayerServiceTest {
     }
 
     @Test
-//    @Disabled
+    @Disabled
     void shouldDeletePlayerWhenGivenAnId() {
         //Arrange
         Player p1 = new Player(
