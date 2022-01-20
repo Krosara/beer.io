@@ -15,8 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -37,9 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
+        http.authorizeRequests().antMatchers(PUT, "/api/player/update").permitAll();
         http.authorizeRequests().antMatchers(POST, "/auth/login", "/auth/token/refresh", "/api/player/add").permitAll();
         http.authorizeRequests().antMatchers(GET, "/auth/token/refresh").permitAll();
-        http.authorizeRequests().antMatchers(GET, "/api/player/").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/api/player/name/**").permitAll();
         http.authorizeRequests().antMatchers("/beer-chat/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));

@@ -23,19 +23,41 @@ const getPlayerById = async (id) => {
   return data;
 };
 
-const updatePlayer = async (id, username, email, country, role, score) => {
-  await axios.post('/player/add', {
-    id,
-    username,
-    email,
-    country,
-    role,
-    score,
+const getPlayerByUsername = async (username) => {
+  const { data } = await axios.get(`/player/name/${username}`);
+  return data;
+};
+
+const updatePlayer = async (username, newUsername) => {
+  await getPlayerByUsername(username).then((response) => {
+    console.log(username);
+    axios.put('/player/update', {
+      id: response.id,
+      username: newUsername,
+      email: response.email,
+      country: response.country,
+      password: response.password,
+      role: response.role,
+    });
   });
+  // const { data } = await axios.post('/player/update', {
+  //   p.id,
+  //   username,
+  //   email,
+  //   country,
+  // });
+  // return data;
 };
 
 const deletePlayer = async (id) => {
   await axios.delete(`/player/delete/${id}`);
 };
 
-export { createPlayer, getPlayers, getPlayerById, updatePlayer, deletePlayer };
+export {
+  createPlayer,
+  getPlayers,
+  getPlayerById,
+  updatePlayer,
+  deletePlayer,
+  getPlayerByUsername,
+};
