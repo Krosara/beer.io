@@ -38,7 +38,7 @@ class PlayerServiceTest {
     }
 
     @Test
-    void canAddPlayer() throws PlayerAlreadyExistsException {
+    void canAddPlayer() {
         //Arrange
         Player p1 = new Player(
                 1L,

@@ -20,9 +20,6 @@ public class BeerServiceImpl implements BeerService {
     }
 
     public Beer addBeer(Beer beer) {
-//        if (beerRepository.existsBeerByBrandName(beer.getBrandName())){
-//            throw new BeerAlreadyExistsException("Beer with brandName: " + beer.getBrandName() + " already exists!");
-//        }
         return beerRepository.save(beer);
     }
 
