@@ -6,8 +6,8 @@ import { ReactComponent as Logo } from '../assets/logo+text.svg';
 import AuthContext from '../context/AuthContext';
 
 export const LoginPage = () => {
-  const [username, setUsername] = useState('kristian');
-  const [password, setPassword] = useState('kristian');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const history = useHistory();
   let { login } = useContext(AuthContext);
 

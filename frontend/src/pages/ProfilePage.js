@@ -1,6 +1,9 @@
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useRef, useState, useContext } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useHistory } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
+import TextField from '../components/TextField/TextField';
+import { getPlayerByUsername, updatePlayer } from '../services/playerService';
 
 export const ProfilePage = () => {
   const [open, setOpen] = useState(true);
@@ -9,13 +12,27 @@ export const ProfilePage = () => {
 
   const history = useHistory();
 
+  const { user } = useContext(AuthContext);
+
+  const [username, setUsername] = useState(user.sub);
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    updatePlayer(user.sub, username)
+      .then(() => {
+        setOpen(false);
+        history.push('/');
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto "
         initialFocus={cancelButtonRef}
-        onClose={history.goBack}
+        onClose={() => history.push('/')}
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
@@ -44,42 +61,38 @@ export const ProfilePage = () => {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="font-work text-offwhite h-740 w-592 inline-block align-middle bg-btngreen-default overflow-hidden shadow-xl transform transition-all">
+            <div className="font-work text-offwhite h-96 w-592 inline-block align-middle bg-btngreen-default overflow-hidden shadow-xl transform transition-all">
               <div className="bg-btngreen-default pb-4">
                 <div className="text-center">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-3xl font-semibold mt-16 mx-auto"
-                  >
-                    Username
-                  </Dialog.Title>
                   <form
-                    action="post"
-                    className=" bg-bggreen h-432 w-424 text-center mx-auto mt-8 pt-10"
+                    action="put"
+                    className=" bg-bggreen h-80 w-424 text-center mx-auto mt-8 pt-10"
+                    autoComplete="off"
+                    spellCheck="false"
+                    onSubmit={handleOnSubmit}
                   >
-                    <input type="email" placeholder="Email"></input>
+                    <Dialog.Title
+                      as="h3"
+                      className="text-3xl font-semibold mb-8 mx-auto"
+                    >
+                      {user.sub}
+                    </Dialog.Title>
+                    <TextField
+                      type="text"
+                      placeholder="Username"
+                      value={username}
+                      onChange={(e) => {
+                        setUsername(e.target.value);
+                      }}
+                    />
+                    <button
+                      type="submit"
+                      className=" text-lg bg-tbgreen-default mt-32 w-48 h-7 rounded-xl hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none"
+                    >
+                      Change username
+                    </button>
                   </form>
                 </div>
-              </div>
-              <div className="bg-btngreen-default px-4 py-3">
-                <button
-                  type="button"
-                  className=" w-64 h-16 inline-flex justify-center border border-transparent shadow-sm bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                  onClick={() => {
-                    setOpen(false);
-                    history.goBack();
-                  }}
-                >
-                  Cancel
-                </button>
-                {/* <button
-                  type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 "
-                  onClick={() => setOpen(false)}
-                  ref={cancelButtonRef}
-                >
-                  Cancel
-                </button> */}
               </div>
             </div>
           </Transition.Child>

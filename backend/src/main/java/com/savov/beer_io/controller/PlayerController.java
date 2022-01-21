@@ -34,6 +34,13 @@ public class PlayerController {
         return ResponseEntity.ok().body(playerDTO);
     }
 
+    @GetMapping("/name/{username}")
+    public ResponseEntity<PlayerDTO> getPlayerByUsername (@PathVariable("username") String username) {
+        Player player = playerService.findPlayerByUsername(username);
+        PlayerDTO playerDTO = modelMapper.map(player, PlayerDTO.class);
+        return ResponseEntity.ok().body(playerDTO);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<PlayerDTO> addPlayer(@RequestBody PlayerDTO playerDto)
     {

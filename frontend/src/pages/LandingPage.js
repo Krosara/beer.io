@@ -12,9 +12,6 @@ export const LandingPage = () => {
   const [sentMessages, setSentMessages] = useState([]);
   const [receivedMessages, setReceivedMessages] = useState([]);
 
-  const sent = [];
-  const received = [];
-
   const [stompClient, setStompClient] = useState(null);
   const [msgToSend, setMsgToSend] = useState('');
 
@@ -55,7 +52,7 @@ export const LandingPage = () => {
 
   return (
     <div>
-      <div className="text-center bg-btngreen-default w-592 filter drop-shadow-normal text-offwhite align-middle mx-auto xs:w-full xs:h-full pt-16 xs:mt-16 h-740">
+      <div className="text-center bg-btngreen-default w-592 filter drop-shadow-normal text-offwhite align-middle mx-auto mt-28 xs:w-full xs:h-full pt-16 xs:mt-16 h-592">
         {receivedMessages.map((msg, id) => {
           return (
             <div key={id}>
@@ -66,25 +63,29 @@ export const LandingPage = () => {
         {sentMessages.map((msg, id) => {
           return <div key={id}>Sent: {msg}</div>;
         })}
-        <TextField
-          type="text"
-          id="username"
-          name="username"
-          value={msgToSend}
-          onChange={(event) => {
-            setMsgToSend(event.target.value);
-          }}
-          placeholder="Write a message!"
-        />
-        <button
-          onClick={() => {
-            console.log(receivedMessages);
-            sendMessage();
-            setMsgToSend('');
-          }}
-        >
-          Send message
-        </button>
+        <div className=" align-bottom absolute bottom-0 mb-3 w-592">
+          <TextField
+            type="text"
+            id="username"
+            name="username"
+            value={msgToSend}
+            onChange={(event) => {
+              setMsgToSend(event.target.value);
+            }}
+            placeholder="Write a message!"
+          />
+          <button
+            className="mt-3 mb-2 text-lg bg-tbgreen-default h-7 w-64  pb-2 rounded-xl hover:bg-tbgreen-hover focus:bg-tbgreen-hover focus:outline-none 
+        "
+            onClick={() => {
+              console.log(receivedMessages);
+              sendMessage();
+              setMsgToSend('');
+            }}
+          >
+            Send message
+          </button>
+        </div>
       </div>
     </div>
   );

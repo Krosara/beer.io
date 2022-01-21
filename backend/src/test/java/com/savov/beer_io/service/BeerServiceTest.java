@@ -49,8 +49,7 @@ class BeerServiceTest {
     }
 
     @Test
-    @Disabled
-    void addBeerWillThrowWhenBrandNameIsTaken() {
+    void addBeer() {
         //Arrange
         Beer b1 = new Beer(
                 1L,
@@ -58,11 +57,13 @@ class BeerServiceTest {
                 "Pilsner",
                 "Czechia"
         );
-        given(beerRepository.existsBeerByBrandName(b1.getBrandName())).willReturn(true);
+        //Act
+        _bs.addBeer(b1);
         //Assert
-        assertThatThrownBy(() -> _bs.addBeer(b1)).isInstanceOf(BeerAlreadyExistsException.class).hasMessageContaining("Beer with brandName: " + b1.getBrandName() + " already exists!");
-
-        verify(beerRepository, never()).save(any());
+        ArgumentCaptor<Beer> beerArgumentCaptor = ArgumentCaptor.forClass(Beer.class);
+        verify(beerRepository).save(beerArgumentCaptor.capture());
+        Beer capturedBeer = beerArgumentCaptor.getValue();
+        assertThat(capturedBeer).isEqualTo(b1);
     }
 
     @Test
